@@ -233,7 +233,7 @@ WINS = [
     ("01", "Stanford AI Hackathon", "WINNER"), ("02", "AWS × INRIX", "WINNER"),
     ("03", "YC-backed Stack Auth", "WINNER"), ("04", "A10 Networks", "WINNER"),
     ("05", "AgentForge", "WINNER"), ("06", "Beta Fund × GMI Cloud", "WINNER"),
-    ("07", "SCU Analytical Showdown", "WINNER"), ("08", "Syndicate by Maximor", "TRACK 2"),
+    ("07", "SCU Analytical Showdown", "WINNER"), ("08", "Syndicate by Maximor · Track 2", "WINNER"),
 ]
 
 
