@@ -92,7 +92,7 @@ def hero_desktop(palette: dict[str, str], animate: bool) -> str:
         text(34, 184, "AI product engineer · agent builder · ships end-to-end", p["muted"], 13),
         line(34, 203, 498, 203, p["line"]),
         metric(34, 239, "8×", "wins", p, p["violet"]),
-        metric(132, 239, "35", "public repos", p, p["cyan"]),
+        metric(132, 239, "36", "public repos", p, p["cyan"]),
         metric(260, 239, "1", "paper", p, p["green"]),
         metric(350, 239, "600+", "Locus tests", p, p["amber"]),
         text(34, 304, "now", p["muted"], 12, 600),
@@ -138,7 +138,7 @@ def hero_phone(palette: dict[str, str]) -> str:
         text(18, 178, "AI product engineer · agent builder", p["muted"], 12),
         line(18, 199, 342, 199, p["line"]),
         metric(18, 235, "8×", "wins", p, p["violet"]),
-        metric(104, 235, "35", "repos", p, p["cyan"]),
+        metric(104, 235, "36", "repos", p, p["cyan"]),
         metric(188, 235, "1", "paper", p, p["green"]),
         metric(260, 235, "600+", "tests", p, p["amber"]),
         text(18, 298, "$ locus benchmark", p["cyan"], 13, 600),
@@ -273,4 +273,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
