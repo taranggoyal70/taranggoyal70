@@ -70,7 +70,7 @@ def base_svg(width: int, height: int, body: str, p: dict[str, str], title: str,
         .session { opacity:1; animation:none; }
         .cursor,.scan,.flow-a,.flow-b,.flow-c,.pulse,.progress { animation:none; }
       }
-    """ if animated else ""
+    """.strip() if animated else ""
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">
   <title id="title">{esc(title)}</title>
   <desc id="desc">{esc(title)}</desc>
@@ -265,7 +265,7 @@ def write(name: str, content: str) -> None:
 
 def main() -> None:
     write("hero.svg", hero_desktop(DARK, True))
-    write("hero-light.svg", hero_desktop(LIGHT, False))
+    write("hero-light.svg", hero_desktop(LIGHT, True))
     write("hero-phone.svg", hero_phone(DARK))
     for item in KEYS:
         slug = item[1].lower()
