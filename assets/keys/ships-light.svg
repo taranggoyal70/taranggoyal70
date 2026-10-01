@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="258" height="60" viewBox="0 0 258 60" role="img" aria-labelledby="title desc">
+  <title id="title">F3 SHIPS: browse products</title>
+  <desc id="desc">F3 SHIPS: browse products</desc>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    
+  </style>
+  <rect width="258" height="60" rx="12" fill="#f5f8fc"/>
+  <rect x="1" y="1" width="256" height="58" rx="9" fill="#ffffff" stroke="#c7d4e4"/><rect x="1" y="1" width="5" height="58" rx="2" fill="#187a4d"/><rect x="16" y="13" width="38" height="34" rx="6" fill="#eaf1f9" stroke="#187a4d"/><text x="35" y="35" fill="#187a4d" font-size="11" font-weight="800" text-anchor="middle" class="">F3</text><text x="68" y="26" fill="#172235" font-size="12" font-weight="800" text-anchor="start" class="">SHIPS</text><text x="68" y="44" fill="#60718b" font-size="9" font-weight="500" text-anchor="start" class="">browse products</text><text x="241" y="36" fill="#187a4d" font-size="17" font-weight="700" text-anchor="end" class="">↗</text>
+</svg>

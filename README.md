@@ -4,47 +4,79 @@
   <picture>
     <source media="(max-width: 620px)" srcset="assets/hero-phone.svg">
     <source media="(prefers-color-scheme: light)" srcset="assets/hero-light.svg">
-    <img src="assets/hero.svg" width="100%" alt="LOCUS OS builder console for Tarang Goyal, AI product engineer and eight-time hackathon winner.">
+    <img src="assets/hero.svg" width="100%" alt="LOCUS OS boots into Tarang Goyal's live operator workspace.">
   </picture>
 </p>
 
+<a id="routes"></a>
+
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/sections/routes-light.svg">
+  <img src="assets/sections/routes.svg" width="100%" alt="Operator routes. Every control opens a real destination.">
+</picture>
+
 <p align="center">
-  <a href="https://tarang-portfolio-pink.vercel.app"><img src="https://img.shields.io/badge/F1_PORTFOLIO-0b1020?style=for-the-badge&logo=vercel&logoColor=59e1ff" alt="Portfolio"></a>
-  <a href="https://github.com/taranggoyal70/locus-support"><img src="https://img.shields.io/badge/F2_LOCUS-0b1020?style=for-the-badge&logo=github&logoColor=c38cff" alt="Locus"></a>
-  <a href="https://linkedin.com/in/tarang-goyal"><img src="https://img.shields.io/badge/F3_LINKEDIN-0b1020?style=for-the-badge&logo=linkedin&logoColor=59e1ff" alt="LinkedIn"></a>
-  <a href="https://arxiv.org/abs/2605.21504"><img src="https://img.shields.io/badge/F4_PAPER-0b1020?style=for-the-badge&logo=arxiv&logoColor=a9f0c1" alt="Research paper"></a>
-  <a href="mailto:taranggoyal2000@gmail.com"><img src="https://img.shields.io/badge/F5_EMAIL-0b1020?style=for-the-badge&logo=gmail&logoColor=ff7b9c" alt="Email"></a>
+  <a href="https://tarang-portfolio-pink.vercel.app"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/portfolio-light.svg"><img src="assets/keys/portfolio.svg" width="31%" alt="F1 Portfolio"></picture></a>
+  <a href="https://github.com/taranggoyal70/locus-support"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/locus-light.svg"><img src="assets/keys/locus.svg" width="31%" alt="F2 Locus"></picture></a>
+  <a href="#ships"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/ships-light.svg"><img src="assets/keys/ships.svg" width="31%" alt="F3 Ships"></picture></a>
+</p>
+
+<p align="center">
+  <a href="https://arxiv.org/abs/2605.21504"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/paper-light.svg"><img src="assets/keys/paper.svg" width="31%" alt="F4 Research paper"></picture></a>
+  <a href="https://linkedin.com/in/tarang-goyal"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/linkedin-light.svg"><img src="assets/keys/linkedin.svg" width="31%" alt="F5 LinkedIn"></picture></a>
+  <a href="mailto:taranggoyal2000@gmail.com"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/email-light.svg"><img src="assets/keys/email.svg" width="31%" alt="F6 Email"></picture></a>
 </p>
 
 <a id="ships"></a>
 
-<p>
-  <picture>
-    <source media="(max-width: 620px)" srcset="assets/projects-phone.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/projects-light.svg">
-    <img src="assets/projects.svg" width="100%" alt="Four systems shipped by Tarang: Locus, Cortex, Project EVOLVE, and the Chronos-2 Forecasting Lab.">
-  </picture>
-</p>
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/sections/ships-light.svg">
+  <img src="assets/sections/ships.svg" width="100%" alt="Four shipped products. Click any card to open it.">
+</picture>
 
-<p align="center">
-  <a href="https://github.com/taranggoyal70/locus-support"><b>Locus</b></a> ·
-  <a href="https://github.com/taranggoyal70/Cortex"><b>Cortex</b></a> ·
-  <a href="https://github.com/taranggoyal70/Schole-AI-challenge"><b>Project EVOLVE</b></a> ·
-  <a href="https://timeseries-fm-web.vercel.app"><b>Chronos-2 Lab</b></a>
-</p>
+<a href="https://github.com/taranggoyal70/locus-support">
+  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/locus-light.svg"><img src="assets/ships/locus.svg" width="100%" alt="Open Locus, an AI developer tool for routing coding agents to the right context."></picture>
+</a>
+
+<a href="https://github.com/taranggoyal70/Cortex">
+  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/cortex-light.svg"><img src="assets/ships/cortex.svg" width="100%" alt="Open Cortex, a system that turns company knowledge into agent-ready skills."></picture>
+</a>
+
+<a href="https://github.com/taranggoyal70/Schole-AI-challenge">
+  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/evolve-light.svg"><img src="assets/ships/evolve.svg" width="100%" alt="Open Project EVOLVE, an inspectable GTM experimentation system."></picture>
+</a>
+
+<a href="https://timeseries-fm-web.vercel.app">
+  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/chronos-light.svg"><img src="assets/ships/chronos.svg" width="100%" alt="Open the Chronos-2 interactive forecasting research lab."></picture>
+</a>
 
 <a id="proof"></a>
 
-<p>
-  <picture>
-    <source media="(max-width: 620px)" srcset="assets/proof-phone.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/proof-light.svg">
-    <img src="assets/proof.svg" width="100%" alt="Eight hackathon and competition wins plus one published research paper.">
-  </picture>
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/sections/proof-light.svg">
+  <img src="assets/sections/proof.svg" width="100%" alt="External proof: eight wins and one paper.">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/proof-light.svg">
+  <img src="assets/proof.svg" width="100%" alt="Eight hackathon and competition wins plus a published research paper.">
+</picture>
+
+<p align="center">
+  <a href="https://arxiv.org/abs/2605.21504"><code>READ THE PAPER ↗</code></a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="https://tarang-portfolio-pink.vercel.app"><code>OPEN FULL PORTFOLIO ↗</code></a>
 </p>
 
+<a id="operator"></a>
+
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/sections/operator-light.svg">
+  <img src="assets/sections/operator.svg" width="100%" alt="Operator manual: how Tarang works.">
+</picture>
+
 ```text
-tarang@locus:~$ cat /etc/builder.conf
+tarang@locus:~$ cat /etc/operator.conf
 
 product     = rough idea -> working system -> real user feedback
 languages   = TypeScript, Python, SQL
@@ -76,5 +108,8 @@ NOTES
 
 </details>
 
-<p align="center"><sub>Generated from <a href="scripts/render_profile.py">one dependency-free Python renderer</a>. The console refreshes weekly through GitHub Actions.</sub></p>
+<p align="center">
+  <a href="#top"><code>↑ REATTACH TO TOP</code></a>
+</p>
 
+<p align="center"><sub>Rendered from <a href="scripts/render_profile.py">one dependency-free Python system</a> and refreshed by GitHub Actions.</sub></p>
