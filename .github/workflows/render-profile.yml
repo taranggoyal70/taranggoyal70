@@ -1,0 +1,34 @@
+name: Refresh profile console
+
+on:
+  schedule:
+    - cron: "17 16 * * 1"
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/render_profile.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-render
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Render responsive SVG assets
+        run: python scripts/render_profile.py
+      - name: Commit changed assets
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "profile: refresh builder console"
+          file_pattern: "assets/*.svg"
+
