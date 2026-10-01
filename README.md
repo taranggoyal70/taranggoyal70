@@ -4,7 +4,7 @@
   <picture>
     <source media="(max-width: 620px)" srcset="assets/hero-phone.svg">
     <source media="(prefers-color-scheme: light)" srcset="assets/hero-light.svg">
-    <img src="assets/hero.svg" width="100%" alt="LOCUS OS boots into Tarang Goyal's live operator workspace.">
+    <img src="assets/hero.svg" width="100%" alt="Tarang OS loads Tarang Goyal's complete AI product builder profile.">
   </picture>
 </p>
 
@@ -17,7 +17,7 @@
 
 <p align="center">
   <a href="https://tarang-portfolio-pink.vercel.app"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/portfolio-light.svg"><img src="assets/keys/portfolio.svg" width="31%" alt="F1 Portfolio"></picture></a>
-  <a href="https://github.com/taranggoyal70/locus-support"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/locus-light.svg"><img src="assets/keys/locus.svg" width="31%" alt="F2 Locus"></picture></a>
+  <a href="https://github.com/taranggoyal70?tab=repositories"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/github-light.svg"><img src="assets/keys/github.svg" width="31%" alt="F2 GitHub repositories"></picture></a>
   <a href="#ships"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/ships-light.svg"><img src="assets/keys/ships.svg" width="31%" alt="F3 Ships"></picture></a>
 </p>
 
@@ -76,18 +76,18 @@
 </picture>
 
 ```text
-tarang@locus:~$ cat /etc/operator.conf
+tarang@builder:~$ cat /etc/operator.conf
 
 product     = rough idea -> working system -> real user feedback
 languages   = TypeScript, Python, SQL
 systems     = AI agents, MCP, RAG, APIs, full-stack products
 tools       = React, Next.js, FastAPI, PostgreSQL, Supabase, AWS, Vercel
 standard    = own the product, test the edges, ship the whole thing
-currently   = making coding agents spend their context on the right files
+currently   = building useful AI products from rough idea to production
 ```
 
 <details>
-<summary><code>tarang@locus:~$ man tarang</code></summary>
+<summary><code>tarang@builder:~$ man tarang</code></summary>
 
 ```text
 NAME

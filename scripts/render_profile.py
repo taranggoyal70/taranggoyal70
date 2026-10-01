@@ -1,4 +1,4 @@
-"""Render the interactive LOCUS//OS GitHub profile assets without dependencies."""
+"""Render the interactive TARANG//OS GitHub profile assets without dependencies."""
 
 from __future__ import annotations
 
@@ -105,26 +105,26 @@ def boot_screen(w: int, h: int, p: dict[str, str], phone: bool = False) -> str:
     line_size = 10 if phone else 12
     y0 = 84 if phone else 92
     lines = [
-        ("boot-1", "[ OK ] memory map", p["green"]),
-        ("boot-2", "[ OK ] code graph", p["green"]),
-        ("boot-3", "[ OK ] semantic index", p["green"]),
-        ("boot-4", "[ OK ] MCP transport", p["green"]),
-        ("boot-5", "[ OK ] product journal", p["green"]),
+        ("boot-1", "[ OK ] product engine", p["green"]),
+        ("boot-2", "[ OK ] agent systems", p["green"]),
+        ("boot-3", "[ OK ] full-stack runtime", p["green"]),
+        ("boot-4", "[ OK ] customer feedback", p["green"]),
+        ("boot-5", "[ OK ] research archive", p["green"]),
         ("boot-6", "ATTACHING TARANG@ATLAS...", p["cyan"]),
     ]
     out = [f'<g class="boot">', f'<rect x="1" y="36" width="{w-2}" height="{h-37}" fill="{p["bg"]}"/>',
-           txt(left, 68, "LOCUS//BIOS  v8.1", p["violet"], size, 800)]
+           txt(left, 68, "TARANG//OS  build 2026.09", p["violet"], size, 800)]
     for i, (cls, label, color) in enumerate(lines):
         out.append(txt(left, y0 + i * 31, label, color, line_size, 600, cls=cls))
     bar_y = h - 54
     out += [f'<rect x="{left}" y="{bar_y}" width="{w-left*2}" height="7" rx="3" fill="{p["panel2"]}"/>',
             f'<rect x="{left}" y="{bar_y}" width="{w-left*2}" height="7" rx="3" fill="{p["cyan"]}" class="progress"/>',
-            txt(left, h - 25, "loading operator workspace", p["muted"], line_size), "</g>"]
+            txt(left, h - 25, "loading builder workspace", p["muted"], line_size), "</g>"]
     return "".join(out)
 
 
 def flow_graph(x: int, y: int, p: dict[str, str], compact: bool = False) -> str:
-    nodes = [("repo", p["cyan"]), ("index", p["violet"]), ("rank", p["amber"]), ("agent", p["green"])]
+    nodes = [("problem", p["cyan"]), ("build", p["violet"]), ("ship", p["amber"]), ("learn", p["green"])]
     step = 68 if compact else 74
     radius = 18 if compact else 21
     out = [rule(x + radius, y, x + step * 3, y, p["line"], 2)]
@@ -140,7 +140,7 @@ def flow_graph(x: int, y: int, p: dict[str, str], compact: bool = False) -> str:
 
 def hero_desktop(p: dict[str, str], animated: bool) -> str:
     w, h = 846, 470
-    s = [f'<g class="session">', chrome(w, p, "LOCUS//OS · operator workspace", "attached: tarang@atlas")]
+    s = [f'<g class="session">', chrome(w, p, "TARANG//OS · builder workspace", "attached: tarang@atlas")]
     s += [
         f'<rect x="16" y="51" width="502" height="360" rx="8" fill="{p["panel"]}" stroke="{p["line"]}"/>',
         f'<rect x="532" y="51" width="298" height="360" rx="8" fill="{p["panel"]}" stroke="{p["line"]}"/>',
@@ -148,16 +148,17 @@ def hero_desktop(p: dict[str, str], animated: bool) -> str:
         txt(34, 154, "TARANG GOYAL", p["text"], 32, 800),
         txt(34, 182, "AI product engineer · builds the whole product", p["muted"], 13), rule(34, 202, 500, 202, p["line"]),
         metric(34, 239, "8×", "wins", p, p["violet"]), metric(132, 239, "36", "public repos", p, p["cyan"]),
-        metric(260, 239, "1", "paper", p, p["green"]), metric(350, 239, "600+", "Locus tests", p, p["amber"]),
+        metric(260, 239, "1", "paper", p, p["green"]), metric(350, 239, "0→1", "product scope", p, p["amber"]),
         txt(34, 302, "CURRENT MISSION", p["muted"], 10, 800),
-        txt(34, 329, "Give coding agents the right context before they act.", p["text"], 12, 600),
-        txt(34, 358, "typescript · python · react · fastapi · postgres · mcp", p["muted"], 11),
-        txt(550, 78, "1: locus.route", p["muted"], 11, 700), txt(550, 109, "$ locus route ./repo", p["cyan"], 12, 700),
-        flow_graph(572, 158, p), txt(550, 207, "LIVE JOURNAL", p["muted"], 10, 800),
-        txt(550, 237, "● graph indexed", p["green"], 11, 600), txt(550, 263, "● required files", p["muted"], 11),
-        txt(812, 263, "100%", p["green"], 12, 800, "end"), txt(550, 289, "● context removed", p["muted"], 11),
-        txt(812, 289, "53%", p["violet"], 12, 800, "end"), txt(550, 315, "● tool surface", p["muted"], 11),
-        txt(812, 315, "CLI + MCP", p["cyan"], 12, 800, "end"), txt(550, 354, "STATUS", p["muted"], 10, 800),
+        txt(34, 329, "Turn rough ideas into useful AI products people can use.", p["text"], 12, 600),
+        txt(34, 358, "product · agents · frontend · backend · data · deployment", p["muted"], 11),
+        txt(550, 78, "1: product.loop", p["muted"], 11, 700), txt(550, 109, "$ build --from problem --to users", p["cyan"], 12, 700),
+        flow_graph(572, 158, p), txt(550, 207, "BUILDER JOURNAL", p["muted"], 10, 800),
+        txt(550, 237, "● AI products", p["green"], 11, 600), txt(812, 237, "SHIPPED", p["green"], 12, 800, "end"),
+        txt(550, 263, "● agent systems", p["muted"], 11), txt(812, 263, "PRODUCTION", p["cyan"], 12, 800, "end"),
+        txt(550, 289, "● customer work", p["muted"], 11), txt(812, 289, "DIRECT", p["violet"], 12, 800, "end"),
+        txt(550, 315, "● ownership", p["muted"], 11), txt(812, 315, "END-TO-END", p["amber"], 12, 800, "end"),
+        txt(550, 354, "STATUS", p["muted"], 10, 800),
         f'<circle cx="600" cy="351" r="4" fill="{p["green"]}" class="pulse"/>', txt(612, 355, "shipping", p["green"], 11, 700),
         f'<rect x="0" y="427" width="846" height="43" fill="{p["panel2"]}"/>', txt(18, 454, "tarang@atlas:~$", p["green"], 13, 800),
         txt(158, 454, "open a route below", p["text"], 13), f'<rect x="315" y="441" width="8" height="16" fill="{p["cyan"]}" class="cursor"/>',
@@ -166,29 +167,29 @@ def hero_desktop(p: dict[str, str], animated: bool) -> str:
     if animated:
         s.append(boot_screen(w, h, p))
         s.append(f'<rect x="1" y="37" width="844" height="2" fill="{p["cyan"]}" opacity=".12" class="scan"/>')
-    return base_svg(w, h, "".join(s), p, "LOCUS OS booting into Tarang Goyal's operator workspace", animated)
+    return base_svg(w, h, "".join(s), p, "Tarang OS booting into Tarang Goyal's builder workspace", animated)
 
 
 def hero_phone(p: dict[str, str]) -> str:
     w, h = 360, 610
-    s = [f'<g class="session">', chrome(w, p, "LOCUS//OS", "tarang@atlas"), txt(18, 72, "$ whoami --verbose", p["cyan"], 12, 700),
+    s = [f'<g class="session">', chrome(w, p, "TARANG//OS", "tarang@atlas"), txt(18, 72, "$ whoami --verbose", p["cyan"], 12, 700),
          txt(18, 110, "TARANG GOYAL", p["text"], 27, 800), txt(18, 139, "AI product engineer · agent builder", p["muted"], 11),
          rule(18, 160, 342, 160, p["line"]), metric(18, 198, "8×", "wins", p, p["violet"]), metric(102, 198, "36", "repos", p, p["cyan"]),
-         metric(184, 198, "1", "paper", p, p["green"]), metric(258, 198, "600+", "tests", p, p["amber"]),
-         txt(18, 257, "$ locus route ./repo", p["cyan"], 12, 700), flow_graph(44, 302, p, True),
-         txt(18, 357, "LIVE JOURNAL", p["muted"], 10, 800), txt(18, 388, "● required files", p["muted"], 11),
-         txt(342, 388, "100%", p["green"], 12, 800, "end"), txt(18, 416, "● context removed", p["muted"], 11),
-         txt(342, 416, "53%", p["violet"], 12, 800, "end"), txt(18, 444, "● tool surface", p["muted"], 11),
-         txt(342, 444, "CLI + MCP", p["cyan"], 12, 800, "end"), rule(18, 470, 342, 470, p["line"]),
-         txt(18, 500, "MISSION", p["muted"], 10, 800), txt(18, 527, "Give agents the right context", p["text"], 11, 600),
-         txt(18, 548, "before they act.", p["text"], 11, 600), f'<rect x="0" y="572" width="360" height="38" fill="{p["panel2"]}"/>',
+         metric(184, 198, "1", "paper", p, p["green"]), metric(258, 198, "0→1", "scope", p, p["amber"]),
+         txt(18, 257, "$ build --problem-to-users", p["cyan"], 11, 700), flow_graph(44, 302, p, True),
+         txt(18, 357, "BUILDER JOURNAL", p["muted"], 10, 800), txt(18, 388, "● AI products", p["muted"], 11),
+         txt(342, 388, "SHIPPED", p["green"], 11, 800, "end"), txt(18, 416, "● agent systems", p["muted"], 11),
+         txt(342, 416, "PRODUCTION", p["cyan"], 11, 800, "end"), txt(18, 444, "● ownership", p["muted"], 11),
+         txt(342, 444, "END-TO-END", p["amber"], 11, 800, "end"), rule(18, 470, 342, 470, p["line"]),
+         txt(18, 500, "MISSION", p["muted"], 10, 800), txt(18, 527, "Turn rough ideas into useful", p["text"], 11, 600),
+         txt(18, 548, "AI products people can use.", p["text"], 11, 600), f'<rect x="0" y="572" width="360" height="38" fill="{p["panel2"]}"/>',
          txt(16, 596, "tarang@atlas:~$", p["green"], 12, 800), f'<rect x="151" y="584" width="8" height="15" fill="{p["cyan"]}" class="cursor"/>',
          "</g>", boot_screen(w, h, p, True)]
-    return base_svg(w, h, "".join(s), p, "LOCUS OS mobile boot sequence for Tarang Goyal", True)
+    return base_svg(w, h, "".join(s), p, "Tarang OS mobile boot sequence for Tarang Goyal", True)
 
 
 KEYS = [
-    ("F1", "PORTFOLIO", "open full site", "cyan"), ("F2", "LOCUS", "open support repo", "violet"),
+    ("F1", "PORTFOLIO", "open full site", "cyan"), ("F2", "GITHUB", "browse all repos", "violet"),
     ("F3", "SHIPS", "browse products", "green"), ("F4", "PAPER", "read on arXiv", "amber"),
     ("F5", "LINKEDIN", "open profile", "cyan"), ("F6", "EMAIL", "start a conversation", "pink"),
 ]
