@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="202" viewBox="0 0 360 202" role="img" aria-labelledby="title desc">
+  <title id="title">Verified external signals: Stanford, AWS, YC, and published research</title>
+  <desc id="desc">Verified external signals: Stanford, AWS, YC, and published research</desc>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    
+  </style>
+  <rect width="360" height="202" rx="12" fill="#f5f8fc"/>
+  <rect x="1" y="1" width="358" height="200" rx="11" fill="#ffffff" stroke="#c7d4e4"/><text x="18" y="28" fill="#007e9c" font-size="10" font-weight="800" text-anchor="start" class="">VERIFIED SIGNAL</text><text x="342" y="28" fill="#7042a8" font-size="9" font-weight="800" text-anchor="end" class="">8× WINS · 1 PAPER</text><line x1="18" y1="42" x2="342" y2="42" stroke="#c7d4e4" stroke-width="1" class=""/><text x="18" y="78" fill="#7042a8" font-size="10" font-weight="800" text-anchor="start" class="">STANFORD UNIVERSITY</text><text x="18" y="98" fill="#60718b" font-size="8" font-weight="700" text-anchor="start" class="">AI HACKATHON WINNER</text><text x="186" y="78" fill="#007e9c" font-size="10" font-weight="800" text-anchor="start" class="">AWS × INRIX</text><text x="186" y="98" fill="#60718b" font-size="8" font-weight="700" text-anchor="start" class="">HACKATHON WINNER</text><text x="18" y="150" fill="#187a4d" font-size="10" font-weight="800" text-anchor="start" class="">YC S24</text><text x="18" y="170" fill="#60718b" font-size="8" font-weight="700" text-anchor="start" class="">STACK AUTH WINNER</text><text x="186" y="150" fill="#9c6500" font-size="10" font-weight="800" text-anchor="start" class="">arXiv:2605.21504</text><text x="186" y="170" fill="#60718b" font-size="8" font-weight="700" text-anchor="start" class="">PUBLISHED RESEARCH</text><line x1="178" y1="53" x2="178" y2="184" stroke="#c7d4e4" stroke-width="1" class=""/><line x1="18" y1="113" x2="342" y2="113" stroke="#c7d4e4" stroke-width="1" class=""/>
+</svg>

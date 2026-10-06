@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import html
+import textwrap
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -188,6 +189,50 @@ def hero_phone(p: dict[str, str]) -> str:
     return base_svg(w, h, "".join(s), p, "Tarang OS mobile boot sequence for Tarang Goyal", True)
 
 
+def signal_asset(p: dict[str, str], phone: bool = False) -> str:
+    signals = [
+        ("STANFORD UNIVERSITY", "AI HACKATHON WINNER", "violet"),
+        ("AWS × INRIX", "HACKATHON WINNER", "cyan"),
+        ("YC S24", "STACK AUTH WINNER", "green"),
+        ("arXiv:2605.21504", "PUBLISHED RESEARCH", "amber"),
+    ]
+    if phone:
+        w, h = 360, 202
+        body = [
+            f'<rect x="1" y="1" width="358" height="200" rx="11" fill="{p["panel"]}" stroke="{p["line"]}"/>',
+            txt(18, 28, "VERIFIED SIGNAL", p["cyan"], 10, 800),
+            txt(342, 28, "8× WINS · 1 PAPER", p["violet"], 9, 800, "end"),
+            rule(18, 42, 342, 42, p["line"]),
+        ]
+        for i, (name, detail, color) in enumerate(signals):
+            col, row = i % 2, i // 2
+            x, y = 18 + col * 168, 78 + row * 72
+            body += [
+                txt(x, y, name, p[color], 10, 800),
+                txt(x, y + 20, detail, p["muted"], 8, 700),
+            ]
+        body += [rule(178, 53, 178, 184, p["line"]), rule(18, 113, 342, 113, p["line"])]
+        return base_svg(w, h, "".join(body), p, "Verified external signals: Stanford, AWS, YC, and published research")
+
+    w, h = 846, 118
+    body = [
+        f'<rect x="1" y="1" width="844" height="116" rx="11" fill="{p["panel"]}" stroke="{p["line"]}"/>',
+        txt(20, 27, "VERIFIED SIGNAL", p["cyan"], 10, 800),
+        txt(826, 27, "8× WINS · 1 PAPER", p["violet"], 10, 800, "end"),
+        rule(20, 40, 826, 40, p["line"]),
+    ]
+    cell_w = 201
+    for i, (name, detail, color) in enumerate(signals):
+        x = 20 + i * cell_w
+        body += [
+            txt(x, 75, name, p[color], 13, 800),
+            txt(x, 97, detail, p["muted"], 9, 700),
+        ]
+        if i:
+            body.append(rule(x - 16, 54, x - 16, 101, p["line"]))
+    return base_svg(w, h, "".join(body), p, "Verified external signals: Stanford, AWS, YC, and published research")
+
+
 KEYS = [
     ("F1", "PORTFOLIO", "open full site", "cyan"), ("F2", "GITHUB", "browse all repos", "violet"),
     ("F3", "SHIPS", "browse products", "green"), ("F4", "PAPER", "read on arXiv", "amber"),
@@ -216,8 +261,29 @@ PROJECTS = [
 ]
 
 
-def project_asset(item: dict[str, str], p: dict[str, str]) -> str:
+def project_asset(item: dict[str, str], p: dict[str, str], phone: bool = False) -> str:
     accent = p[item["color"]]
+    if phone:
+        blurb_lines = textwrap.wrap(item["blurb"], width=46)
+        proof_lines = textwrap.wrap(item["proof"], width=50)
+        body = [
+            f'<rect x="1" y="1" width="358" height="238" rx="11" fill="{p["panel"]}" stroke="{p["line"]}"/>',
+            f'<rect x="1" y="1" width="6" height="238" rx="3" fill="{accent}"/>',
+            txt(18, 27, item["type"], p["muted"], 8, 800),
+            txt(18, 61, item["name"], accent, 22, 800),
+            txt(342, 61, item["status"], accent, 8, 800, "end"),
+        ]
+        for i, line in enumerate(blurb_lines[:2]):
+            body.append(txt(18, 91 + i * 20, line, p["text"], 10, 600))
+        body.append(rule(18, 124, 342, 124, p["line"]))
+        for i, line in enumerate(proof_lines[:2]):
+            body.append(txt(18, 151 + i * 20, line, p["text"], 9, 600))
+        body += [
+            rule(18, 194, 342, 194, p["line"]),
+            txt(18, 220, item["stack"], p["muted"], 8, 500),
+        ]
+        return base_svg(360, 240, "".join(body), p, f"Open {item['name']}: {item['blurb']}")
+
     body = "".join([
         f'<rect x="1" y="1" width="844" height="152" rx="11" fill="{p["panel"]}" stroke="{p["line"]}"/>',
         f'<rect x="1" y="1" width="7" height="152" rx="3" fill="{accent}"/>', txt(26, 34, item["type"], p["muted"], 9, 800),
@@ -227,6 +293,23 @@ def project_asset(item: dict[str, str], p: dict[str, str]) -> str:
         txt(769, 125, "OPEN  ↗", accent, 10, 800, "middle"),
     ])
     return base_svg(846, 154, body, p, f"Open {item['name']}: {item['blurb']}")
+
+
+def project_action_asset(item: dict[str, str], p: dict[str, str], action: str) -> str:
+    accent = p[item["color"]]
+    if action == "live":
+        label, hint, mark = "LIVE PRODUCT", "open deployed experience", "●"
+    else:
+        label, hint, mark = "SOURCE CODE", "inspect architecture + tests", "</>"
+    body = "".join([
+        f'<rect x="1" y="1" width="408" height="48" rx="9" fill="{p["panel"]}" stroke="{p["line"]}"/>',
+        f'<rect x="1" y="1" width="5" height="48" rx="2" fill="{accent}"/>',
+        txt(20, 30, mark, accent, 10, 800),
+        txt(52, 22, label, p["text"], 10, 800),
+        txt(52, 37, hint, p["muted"], 8, 600),
+        txt(392, 30, "↗", accent, 15, 800, "end"),
+    ])
+    return base_svg(410, 50, body, p, f"{label}: {item['name']}")
 
 
 WINS = [
@@ -268,6 +351,10 @@ def main() -> None:
     write("hero.svg", hero_desktop(DARK, True))
     write("hero-light.svg", hero_desktop(LIGHT, True))
     write("hero-phone.svg", hero_phone(DARK))
+    write("signal.svg", signal_asset(DARK))
+    write("signal-light.svg", signal_asset(LIGHT))
+    write("signal-phone.svg", signal_asset(DARK, True))
+    write("signal-phone-light.svg", signal_asset(LIGHT, True))
     for item in KEYS:
         slug = item[1].lower()
         write(f"keys/{slug}.svg", key_asset(item, DARK))
@@ -275,6 +362,11 @@ def main() -> None:
     for item in PROJECTS:
         write(f"ships/{item['slug']}.svg", project_asset(item, DARK))
         write(f"ships/{item['slug']}-light.svg", project_asset(item, LIGHT))
+        write(f"ships/{item['slug']}-phone.svg", project_asset(item, DARK, True))
+        write(f"ships/{item['slug']}-phone-light.svg", project_asset(item, LIGHT, True))
+        for action in ("live", "source"):
+            write(f"actions/{item['slug']}-{action}.svg", project_action_asset(item, DARK, action))
+            write(f"actions/{item['slug']}-{action}-light.svg", project_action_asset(item, LIGHT, action))
     write("proof.svg", proof_asset(DARK))
     write("proof-light.svg", proof_asset(LIGHT))
     sections = [

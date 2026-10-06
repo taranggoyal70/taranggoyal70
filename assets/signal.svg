@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="846" height="118" viewBox="0 0 846 118" role="img" aria-labelledby="title desc">
+  <title id="title">Verified external signals: Stanford, AWS, YC, and published research</title>
+  <desc id="desc">Verified external signals: Stanford, AWS, YC, and published research</desc>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    
+  </style>
+  <rect width="846" height="118" rx="12" fill="#070a11"/>
+  <rect x="1" y="1" width="844" height="116" rx="11" fill="#0d1421" stroke="#263650"/><text x="20" y="27" fill="#59e1ff" font-size="10" font-weight="800" text-anchor="start" class="">VERIFIED SIGNAL</text><text x="826" y="27" fill="#c38cff" font-size="10" font-weight="800" text-anchor="end" class="">8× WINS · 1 PAPER</text><line x1="20" y1="40" x2="826" y2="40" stroke="#263650" stroke-width="1" class=""/><text x="20" y="75" fill="#c38cff" font-size="13" font-weight="800" text-anchor="start" class="">STANFORD UNIVERSITY</text><text x="20" y="97" fill="#8293ad" font-size="9" font-weight="700" text-anchor="start" class="">AI HACKATHON WINNER</text><text x="221" y="75" fill="#59e1ff" font-size="13" font-weight="800" text-anchor="start" class="">AWS × INRIX</text><text x="221" y="97" fill="#8293ad" font-size="9" font-weight="700" text-anchor="start" class="">HACKATHON WINNER</text><line x1="205" y1="54" x2="205" y2="101" stroke="#263650" stroke-width="1" class=""/><text x="422" y="75" fill="#a9f0c1" font-size="13" font-weight="800" text-anchor="start" class="">YC S24</text><text x="422" y="97" fill="#8293ad" font-size="9" font-weight="700" text-anchor="start" class="">STACK AUTH WINNER</text><line x1="406" y1="54" x2="406" y2="101" stroke="#263650" stroke-width="1" class=""/><text x="623" y="75" fill="#ffd27a" font-size="13" font-weight="800" text-anchor="start" class="">arXiv:2605.21504</text><text x="623" y="97" fill="#8293ad" font-size="9" font-weight="700" text-anchor="start" class="">PUBLISHED RESEARCH</text><line x1="607" y1="54" x2="607" y2="101" stroke="#263650" stroke-width="1" class=""/>
+</svg>

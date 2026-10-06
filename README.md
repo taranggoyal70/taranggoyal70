@@ -8,6 +8,13 @@
   </picture>
 </p>
 
+<picture>
+  <source media="(max-width: 620px) and (prefers-color-scheme: light)" srcset="assets/signal-phone-light.svg">
+  <source media="(max-width: 620px)" srcset="assets/signal-phone.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/signal-light.svg">
+  <img src="assets/signal.svg" width="100%" alt="Verified external proof: Stanford University, AWS x INRIX, YC-backed Stack Auth, eight wins, and a published paper.">
+</picture>
+
 <a id="routes"></a>
 
 <picture>
@@ -35,24 +42,36 @@
 </picture>
 
 <a href="https://locus-five-iota.vercel.app">
-  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/locus-light.svg"><img src="assets/ships/locus.svg" width="100%" alt="Open Locus, an AI developer tool for routing coding agents to the right context."></picture>
+  <picture><source media="(max-width: 620px) and (prefers-color-scheme: light)" srcset="assets/ships/locus-phone-light.svg"><source media="(max-width: 620px)" srcset="assets/ships/locus-phone.svg"><source media="(prefers-color-scheme: light)" srcset="assets/ships/locus-light.svg"><img src="assets/ships/locus.svg" width="100%" alt="Open Locus, an AI developer tool for routing coding agents to the right context."></picture>
 </a>
-<p align="right"><a href="https://locus-five-iota.vercel.app"><code>LIVE PRODUCT ↗</code></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://github.com/taranggoyal70/locus"><code>SOURCE ↗</code></a></p>
+<p align="center">
+  <a href="https://locus-five-iota.vercel.app"><picture><source media="(prefers-color-scheme: light)" srcset="assets/actions/locus-live-light.svg"><img src="assets/actions/locus-live.svg" width="410" alt="Open the live Locus product."></picture></a>
+  <a href="https://github.com/taranggoyal70/locus"><picture><source media="(prefers-color-scheme: light)" srcset="assets/actions/locus-source-light.svg"><img src="assets/actions/locus-source.svg" width="410" alt="Inspect the Locus source code."></picture></a>
+</p>
 
 <a href="https://gatekit.vercel.app">
-  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/gatekit-light.svg"><img src="assets/ships/gatekit.svg" width="100%" alt="Open Gatekit, the governance and audit layer for production AI agents."></picture>
+  <picture><source media="(max-width: 620px) and (prefers-color-scheme: light)" srcset="assets/ships/gatekit-phone-light.svg"><source media="(max-width: 620px)" srcset="assets/ships/gatekit-phone.svg"><source media="(prefers-color-scheme: light)" srcset="assets/ships/gatekit-light.svg"><img src="assets/ships/gatekit.svg" width="100%" alt="Open Gatekit, the governance and audit layer for production AI agents."></picture>
 </a>
-<p align="right"><a href="https://gatekit.vercel.app"><code>LIVE PRODUCT ↗</code></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://github.com/taranggoyal70/gatekit"><code>SOURCE ↗</code></a></p>
+<p align="center">
+  <a href="https://gatekit.vercel.app"><picture><source media="(prefers-color-scheme: light)" srcset="assets/actions/gatekit-live-light.svg"><img src="assets/actions/gatekit-live.svg" width="410" alt="Open the live Gatekit product."></picture></a>
+  <a href="https://github.com/taranggoyal70/gatekit"><picture><source media="(prefers-color-scheme: light)" srcset="assets/actions/gatekit-source-light.svg"><img src="assets/actions/gatekit-source.svg" width="410" alt="Inspect the Gatekit source code."></picture></a>
+</p>
 
 <a href="https://morphic-murex.vercel.app">
-  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/morphic-light.svg"><img src="assets/ships/morphic.svg" width="100%" alt="Open Morphic, an adaptive software workspace grounded in live GitHub evidence."></picture>
+  <picture><source media="(max-width: 620px) and (prefers-color-scheme: light)" srcset="assets/ships/morphic-phone-light.svg"><source media="(max-width: 620px)" srcset="assets/ships/morphic-phone.svg"><source media="(prefers-color-scheme: light)" srcset="assets/ships/morphic-light.svg"><img src="assets/ships/morphic.svg" width="100%" alt="Open Morphic, an adaptive software workspace grounded in live GitHub evidence."></picture>
 </a>
-<p align="right"><a href="https://morphic-murex.vercel.app"><code>LIVE PRODUCT ↗</code></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://github.com/taranggoyal70/Morphic"><code>SOURCE ↗</code></a></p>
+<p align="center">
+  <a href="https://morphic-murex.vercel.app"><picture><source media="(prefers-color-scheme: light)" srcset="assets/actions/morphic-live-light.svg"><img src="assets/actions/morphic-live.svg" width="410" alt="Open the live Morphic product."></picture></a>
+  <a href="https://github.com/taranggoyal70/Morphic"><picture><source media="(prefers-color-scheme: light)" srcset="assets/actions/morphic-source-light.svg"><img src="assets/actions/morphic-source.svg" width="410" alt="Inspect the Morphic source code."></picture></a>
+</p>
 
 <a href="https://crowd-symphony.vercel.app">
-  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/crowd-light.svg"><img src="assets/ships/crowd.svg" width="100%" alt="Open Crowd Symphony, a real-time music experience controlled by hand gestures."></picture>
+  <picture><source media="(max-width: 620px) and (prefers-color-scheme: light)" srcset="assets/ships/crowd-phone-light.svg"><source media="(max-width: 620px)" srcset="assets/ships/crowd-phone.svg"><source media="(prefers-color-scheme: light)" srcset="assets/ships/crowd-light.svg"><img src="assets/ships/crowd.svg" width="100%" alt="Open Crowd Symphony, a real-time music experience controlled by hand gestures."></picture>
 </a>
-<p align="right"><a href="https://crowd-symphony.vercel.app"><code>LIVE PRODUCT ↗</code></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://github.com/taranggoyal70/crowd-symphony"><code>SOURCE ↗</code></a></p>
+<p align="center">
+  <a href="https://crowd-symphony.vercel.app"><picture><source media="(prefers-color-scheme: light)" srcset="assets/actions/crowd-live-light.svg"><img src="assets/actions/crowd-live.svg" width="410" alt="Open the live Crowd Symphony product."></picture></a>
+  <a href="https://github.com/taranggoyal70/crowd-symphony"><picture><source media="(prefers-color-scheme: light)" srcset="assets/actions/crowd-source-light.svg"><img src="assets/actions/crowd-source.svg" width="410" alt="Inspect the Crowd Symphony source code."></picture></a>
+</p>
 
 <a id="proof"></a>
 

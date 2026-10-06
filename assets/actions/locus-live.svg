@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="410" height="50" viewBox="0 0 410 50" role="img" aria-labelledby="title desc">
+  <title id="title">LIVE PRODUCT: LOCUS</title>
+  <desc id="desc">LIVE PRODUCT: LOCUS</desc>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    
+  </style>
+  <rect width="410" height="50" rx="12" fill="#070a11"/>
+  <rect x="1" y="1" width="408" height="48" rx="9" fill="#0d1421" stroke="#263650"/><rect x="1" y="1" width="5" height="48" rx="2" fill="#c38cff"/><text x="20" y="30" fill="#c38cff" font-size="10" font-weight="800" text-anchor="start" class="">●</text><text x="52" y="22" fill="#e0ebfa" font-size="10" font-weight="800" text-anchor="start" class="">LIVE PRODUCT</text><text x="52" y="37" fill="#8293ad" font-size="8" font-weight="600" text-anchor="start" class="">open deployed experience</text><text x="392" y="30" fill="#c38cff" font-size="15" font-weight="800" text-anchor="end" class="">↗</text>
+</svg>
