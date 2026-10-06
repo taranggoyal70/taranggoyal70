@@ -31,24 +31,28 @@
 
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="assets/sections/ships-light.svg">
-  <img src="assets/sections/ships.svg" width="100%" alt="Four shipped products. Click any card to open it.">
+  <img src="assets/sections/ships.svg" width="100%" alt="Four selected products. Each one is live and backed by a public repository.">
 </picture>
 
-<a href="https://github.com/taranggoyal70/locus-support">
+<a href="https://locus-five-iota.vercel.app">
   <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/locus-light.svg"><img src="assets/ships/locus.svg" width="100%" alt="Open Locus, an AI developer tool for routing coding agents to the right context."></picture>
 </a>
+<p align="right"><a href="https://locus-five-iota.vercel.app"><code>LIVE PRODUCT ↗</code></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://github.com/taranggoyal70/locus"><code>SOURCE ↗</code></a></p>
 
-<a href="https://github.com/taranggoyal70/Cortex">
-  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/cortex-light.svg"><img src="assets/ships/cortex.svg" width="100%" alt="Open Cortex, a system that turns company knowledge into agent-ready skills."></picture>
+<a href="https://gatekit.vercel.app">
+  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/gatekit-light.svg"><img src="assets/ships/gatekit.svg" width="100%" alt="Open Gatekit, the governance and audit layer for production AI agents."></picture>
 </a>
+<p align="right"><a href="https://gatekit.vercel.app"><code>LIVE PRODUCT ↗</code></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://github.com/taranggoyal70/gatekit"><code>SOURCE ↗</code></a></p>
 
-<a href="https://github.com/taranggoyal70/Schole-AI-challenge">
-  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/evolve-light.svg"><img src="assets/ships/evolve.svg" width="100%" alt="Open Project EVOLVE, an inspectable GTM experimentation system."></picture>
+<a href="https://morphic-murex.vercel.app">
+  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/morphic-light.svg"><img src="assets/ships/morphic.svg" width="100%" alt="Open Morphic, an adaptive software workspace grounded in live GitHub evidence."></picture>
 </a>
+<p align="right"><a href="https://morphic-murex.vercel.app"><code>LIVE PRODUCT ↗</code></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://github.com/taranggoyal70/Morphic"><code>SOURCE ↗</code></a></p>
 
-<a href="https://timeseries-fm-web.vercel.app">
-  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/chronos-light.svg"><img src="assets/ships/chronos.svg" width="100%" alt="Open the Chronos-2 interactive forecasting research lab."></picture>
+<a href="https://crowd-symphony.vercel.app">
+  <picture><source media="(prefers-color-scheme: light)" srcset="assets/ships/crowd-light.svg"><img src="assets/ships/crowd.svg" width="100%" alt="Open Crowd Symphony, a real-time music experience controlled by hand gestures."></picture>
 </a>
+<p align="right"><a href="https://crowd-symphony.vercel.app"><code>LIVE PRODUCT ↗</code></a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://github.com/taranggoyal70/crowd-symphony"><code>SOURCE ↗</code></a></p>
 
 <a id="proof"></a>
 
@@ -78,12 +82,12 @@
 ```text
 tarang@builder:~$ cat /etc/operator.conf
 
-product     = rough idea -> working system -> real user feedback
-languages   = TypeScript, Python, SQL
-systems     = AI agents, MCP, RAG, APIs, full-stack products
-tools       = React, Next.js, FastAPI, PostgreSQL, Supabase, AWS, Vercel
-standard    = own the product, test the edges, ship the whole thing
-currently   = building useful AI products from rough idea to production
+product     = ambiguous problem -> working system -> real user feedback
+production  = owned a full-stack AI platform used by students and staff
+agents      = context routing, tool use, guardrails, evaluation, MCP
+stack       = TypeScript, Python, React, Next.js, FastAPI, Postgres, AWS
+research    = Chronos-2 multivariate forecasting -> arXiv:2605.21504
+standard    = talk to users, test the edges, ship the whole thing
 ```
 
 <details>
@@ -97,7 +101,7 @@ SYNOPSIS
     tarang [idea] --build-end-to-end --talk-to-users --measure
 
 DESCRIPTION
-    Builds agentic products across the model, backend, frontend,
+    Takes unclear product problems across the model, backend, frontend,
     integrations, deployment, and evaluation layers.
 
 NOTES

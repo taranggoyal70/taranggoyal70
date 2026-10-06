@@ -146,17 +146,17 @@ def hero_desktop(p: dict[str, str], animated: bool) -> str:
         f'<rect x="532" y="51" width="298" height="360" rx="8" fill="{p["panel"]}" stroke="{p["line"]}"/>',
         txt(34, 78, "0: operator", p["muted"], 11, 700), txt(34, 111, "$ whoami --verbose", p["cyan"], 14, 700),
         txt(34, 154, "TARANG GOYAL", p["text"], 32, 800),
-        txt(34, 182, "AI product engineer · builds the whole product", p["muted"], 13), rule(34, 202, 500, 202, p["line"]),
-        metric(34, 239, "8×", "wins", p, p["violet"]), metric(132, 239, "36", "public repos", p, p["cyan"]),
+        txt(34, 182, "AI product engineer · full-stack · agents · FDE", p["muted"], 13), rule(34, 202, 500, 202, p["line"]),
+        metric(34, 239, "8×", "wins", p, p["violet"]), metric(132, 239, "37", "public repos", p, p["cyan"]),
         metric(260, 239, "1", "paper", p, p["green"]), metric(350, 239, "0→1", "product scope", p, p["amber"]),
         txt(34, 302, "CURRENT MISSION", p["muted"], 10, 800),
-        txt(34, 329, "Turn rough ideas into useful AI products people can use.", p["text"], 12, 600),
-        txt(34, 358, "product · agents · frontend · backend · data · deployment", p["muted"], 11),
+        txt(34, 329, "Take ambiguous customer problems from zero to production.", p["text"], 12, 600),
+        txt(34, 358, "product · agents · frontend · backend · evaluation · deployment", p["muted"], 11),
         txt(550, 78, "1: product.loop", p["muted"], 11, 700), txt(550, 109, "$ build --from problem --to users", p["cyan"], 12, 700),
         flow_graph(572, 158, p), txt(550, 207, "BUILDER JOURNAL", p["muted"], 10, 800),
-        txt(550, 237, "● AI products", p["green"], 11, 600), txt(812, 237, "SHIPPED", p["green"], 12, 800, "end"),
-        txt(550, 263, "● agent systems", p["muted"], 11), txt(812, 263, "PRODUCTION", p["cyan"], 12, 800, "end"),
-        txt(550, 289, "● customer work", p["muted"], 11), txt(812, 289, "DIRECT", p["violet"], 12, 800, "end"),
+        txt(550, 237, "● 0→1 products", p["green"], 11, 600), txt(812, 237, "SHIPPED", p["green"], 12, 800, "end"),
+        txt(550, 263, "● agent systems", p["muted"], 11), txt(812, 263, "GUARDED", p["cyan"], 12, 800, "end"),
+        txt(550, 289, "● customer work", p["muted"], 11), txt(812, 289, "PRODUCTION", p["violet"], 12, 800, "end"),
         txt(550, 315, "● ownership", p["muted"], 11), txt(812, 315, "END-TO-END", p["amber"], 12, 800, "end"),
         txt(550, 354, "STATUS", p["muted"], 10, 800),
         f'<circle cx="600" cy="351" r="4" fill="{p["green"]}" class="pulse"/>', txt(612, 355, "shipping", p["green"], 11, 700),
@@ -173,8 +173,8 @@ def hero_desktop(p: dict[str, str], animated: bool) -> str:
 def hero_phone(p: dict[str, str]) -> str:
     w, h = 360, 610
     s = [f'<g class="session">', chrome(w, p, "TARANG//OS", "tarang@atlas"), txt(18, 72, "$ whoami --verbose", p["cyan"], 12, 700),
-         txt(18, 110, "TARANG GOYAL", p["text"], 27, 800), txt(18, 139, "AI product engineer · agent builder", p["muted"], 11),
-         rule(18, 160, 342, 160, p["line"]), metric(18, 198, "8×", "wins", p, p["violet"]), metric(102, 198, "36", "repos", p, p["cyan"]),
+         txt(18, 110, "TARANG GOYAL", p["text"], 27, 800), txt(18, 139, "AI product engineer · full-stack · agents", p["muted"], 11),
+         rule(18, 160, 342, 160, p["line"]), metric(18, 198, "8×", "wins", p, p["violet"]), metric(102, 198, "37", "repos", p, p["cyan"]),
          metric(184, 198, "1", "paper", p, p["green"]), metric(258, 198, "0→1", "scope", p, p["amber"]),
          txt(18, 257, "$ build --problem-to-users", p["cyan"], 11, 700), flow_graph(44, 302, p, True),
          txt(18, 357, "BUILDER JOURNAL", p["muted"], 10, 800), txt(18, 388, "● AI products", p["muted"], 11),
@@ -209,10 +209,10 @@ def key_asset(item: tuple[str, str, str, str], p: dict[str, str]) -> str:
 
 
 PROJECTS = [
-    {"slug": "locus", "name": "LOCUS", "type": "AI DEVELOPER TOOL", "color": "violet", "blurb": "Routes coding agents to the files and dependencies that matter.", "proof": "100% required-file recall · 53% less context · 600+ tests", "stack": "agent · API · web · CLI · MCP · auth · deployment", "status": "PRIVATE CORE · PUBLIC SUPPORT"},
-    {"slug": "cortex", "name": "CORTEX", "type": "KNOWLEDGE INFRASTRUCTURE", "color": "cyan", "blurb": "Turns company knowledge into reviewed, agent-ready skills.", "proof": "citations · human review · Slack · REST/MCP", "stack": "ingest · retrieve · draft · verify · publish", "status": "SHIPPED"},
-    {"slug": "evolve", "name": "PROJECT EVOLVE", "type": "GTM EXPERIMENTATION", "color": "green", "blurb": "Makes product experiments inspectable from evidence to decision.", "proof": "observed A/B data · Bayesian decisions · audit trail", "stack": "React · TypeScript · analytics · experiment engine", "status": "SHIPPED"},
-    {"slug": "chronos", "name": "CHRONOS-2 LAB", "type": "PUBLISHED RESEARCH", "color": "amber", "blurb": "Tests when related time series help foundation-model forecasts.", "proof": "7 major tech stocks · U.S. Treasury rates · 2000–2025", "stack": "Python · Chronos-2 · forecasting · interactive lab", "status": "arXiv:2605.21504"},
+    {"slug": "locus", "name": "LOCUS", "type": "STANFORD AI HACKATHON WINNER", "color": "violet", "blurb": "Finds the right code and dependencies before an agent starts.", "proof": "15-case benchmark · 100% required-file recall · 53% less context", "stack": "web · REST API · CLI · MCP · Guard · 600+ tests", "status": "LIVE · FLAGSHIP"},
+    {"slug": "gatekit", "name": "GATEKIT", "type": "AGENTFORGE HACKATHON WINNER", "color": "cyan", "blurb": "Stops risky agent actions before they reach production.", "proof": "policy engine · immutable audit log · approvals · published SDK", "stack": "Next.js · TypeScript · Postgres · Clerk · Stripe · Slack", "status": "AGENT SAFETY"},
+    {"slug": "morphic", "name": "MORPHIC", "type": "BETA FUND × GMI CLOUD WINNER", "color": "green", "blurb": "Turns GitHub evidence into adaptive workspaces and reviewable PRs.", "proof": "GitHub sync · durable workflows · isolated Codex runs · approval", "stack": "Next.js · Neon · Upstash · Vercel Workflow · Sandbox", "status": "DEV WORKSPACE"},
+    {"slug": "crowd", "name": "CROWD SYMPHONY", "type": "YC-BACKED STACK AUTH WINNER", "color": "amber", "blurb": "Turns hand gestures into synchronized audio across a crowd.", "proof": "MediaPipe tracking · QR onboarding · real-time multi-device audio", "stack": "Next.js · TypeScript · Web Audio · Vercel Runtime Cache", "status": "LIVE · REAL-TIME"},
 ]
 
 
@@ -279,7 +279,7 @@ def main() -> None:
     write("proof-light.svg", proof_asset(LIGHT))
     sections = [
         ("01", "/operator/routes", "every control opens a real destination", "routes"),
-        ("02", "/srv/ships", "four complete products · click any card", "ships"),
+        ("02", "/srv/ships", "four selected products · live demos + source", "ships"),
         ("03", "/var/log/external-proof", "results verified outside the repo", "proof"),
         ("04", "/etc/operator", "how I work", "operator"),
     ]
