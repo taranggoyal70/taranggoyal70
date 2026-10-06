@@ -113,7 +113,7 @@ def boot_screen(w: int, h: int, p: dict[str, str], phone: bool = False) -> str:
         ("boot-6", "ATTACHING TARANG@ATLAS...", p["cyan"]),
     ]
     out = [f'<g class="boot">', f'<rect x="1" y="36" width="{w-2}" height="{h-37}" fill="{p["bg"]}"/>',
-           txt(left, 68, "TARANG//OS  build 2026.09", p["violet"], size, 800)]
+           txt(left, 68, "TARANG//OS  release 8.0", p["violet"], size, 800)]
     for i, (cls, label, color) in enumerate(lines):
         out.append(txt(left, y0 + i * 31, label, color, line_size, 600, cls=cls))
     bar_y = h - 54
