@@ -209,7 +209,7 @@ def key_asset(item: tuple[str, str, str, str], p: dict[str, str]) -> str:
 
 
 PROJECTS = [
-    {"slug": "locus", "name": "LOCUS", "type": "STANFORD AI HACKATHON WINNER", "color": "violet", "blurb": "Finds the right code and dependencies before an agent starts.", "proof": "15-case benchmark · 100% required-file recall · 53% less context", "stack": "web · REST API · CLI · MCP · Guard · 600+ tests", "status": "LIVE · FLAGSHIP"},
+    {"slug": "locus", "name": "LOCUS", "type": "STANFORD UNIVERSITY AI HACKATHON WINNER", "color": "violet", "blurb": "Finds the right code and dependencies before an agent starts.", "proof": "15-case benchmark · 100% required-file recall · 53% less context", "stack": "web · REST API · CLI · MCP · Guard · 600+ tests", "status": "LIVE · FLAGSHIP"},
     {"slug": "gatekit", "name": "GATEKIT", "type": "AGENTFORGE HACKATHON WINNER", "color": "cyan", "blurb": "Stops risky agent actions before they reach production.", "proof": "policy engine · immutable audit log · approvals · published SDK", "stack": "Next.js · TypeScript · Postgres · Clerk · Stripe · Slack", "status": "AGENT SAFETY"},
     {"slug": "morphic", "name": "MORPHIC", "type": "BETA FUND × GMI CLOUD WINNER", "color": "green", "blurb": "Turns GitHub evidence into adaptive workspaces and reviewable PRs.", "proof": "GitHub sync · durable workflows · isolated Codex runs · approval", "stack": "Next.js · Neon · Upstash · Vercel Workflow · Sandbox", "status": "DEV WORKSPACE"},
     {"slug": "crowd", "name": "CROWD SYMPHONY", "type": "YC-BACKED STACK AUTH WINNER", "color": "amber", "blurb": "Turns hand gestures into synchronized audio across a crowd.", "proof": "MediaPipe tracking · QR onboarding · real-time multi-device audio", "stack": "Next.js · TypeScript · Web Audio · Vercel Runtime Cache", "status": "LIVE · REAL-TIME"},
@@ -230,7 +230,7 @@ def project_asset(item: dict[str, str], p: dict[str, str]) -> str:
 
 
 WINS = [
-    ("01", "Stanford AI Hackathon", "WINNER"), ("02", "AWS × INRIX", "WINNER"),
+    ("01", "Stanford University AI Hackathon", "WINNER"), ("02", "AWS × INRIX", "WINNER"),
     ("03", "YC-backed Stack Auth", "WINNER"), ("04", "A10 Networks", "WINNER"),
     ("05", "AgentForge", "WINNER"), ("06", "Beta Fund × GMI Cloud", "WINNER"),
     ("07", "SCU Analytical Showdown", "WINNER"), ("08", "Syndicate by Maximor · Track 2", "WINNER"),
