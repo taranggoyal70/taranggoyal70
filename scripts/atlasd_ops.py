@@ -2,11 +2,11 @@
 
 Usage (always from the repo root):
 
-    python scripts/atlasd_ops.py init
-    python scripts/atlasd_ops.py process --title STR --actor LOGIN --issue INT
-    python scripts/atlasd_ops.py render
-    python scripts/atlasd_ops.py tiles
-    python scripts/atlasd_ops.py self-test
+    python3 scripts/atlasd_ops.py init
+    python3 scripts/atlasd_ops.py process --title STR --actor LOGIN --issue INT
+    python3 scripts/atlasd_ops.py render
+    python3 scripts/atlasd_ops.py tiles
+    python3 scripts/atlasd_ops.py self-test
 
 Contract for `process`: stdout is EXACTLY the in-character issue-comment reply
 (nothing else), and the exit code is always 0. Diagnostics go to stderr.
@@ -80,18 +80,18 @@ RESULT_LABELS = {
     "dup": "re-scan (noop)",
     "panic": "KERNEL PANIC",
     "clean": "BOARD CLEANED",
-    "reformat": "new disk online",
-    "refused": "reformat refused",
+    "reformat": "new APFS board",
+    "refused": "reset refused",
     "press": "nothing happened",
 }
 
 SCAN_BODY = (
-    "Submit this issue as-is to scan sector {cell} of /dev/sda1.\n"
-    "The single-threaded fsck daemon will ack with an eyes reaction and redraw the board in about a minute."
+    "Submit this issue as-is to scan sector {cell} of Macintosh HD.\n"
+    "The single-threaded diskutil demo will ack with an eyes reaction and redraw the board in about a minute."
 )
 REFORMAT_BODY = (
-    "Submit this issue as-is to reformat /dev/sda1 and bring up a fresh board.\n"
-    "Only honored when the current board is panicked or cleaned; the daemon refuses mid-shift."
+    "Submit this issue as-is to reset the APFS demo board.\n"
+    "Only honored when the current board is panicked or cleaned; launchd refuses mid-shift."
 )
 
 
@@ -355,7 +355,7 @@ MKFS_W = 256
 MODES = (("dark", ""), ("light", "-light"))
 # The bezel title is the one part of the device that shows state at a glance.
 BOARD_TITLES = {"cols": "81 sectors", "cols-panic": "kernel panic", "cols-clean": "clean"}
-PANEL_TITLE = ("1 fsck.atlasd 5.8", "/dev/sda1")
+PANEL_TITLE = ("1 diskutil.atlasd", "Macintosh HD")
 BUTTON_BODY = "Submit this issue as-is. You were told."
 
 # A corrupted sector, drawn as a 7x7 burst (the same mark, lit or dormant).
@@ -516,13 +516,13 @@ def mkfs_svg(mode: str) -> str:
     """The reformat key: only drawn into the README once the board is dead."""
     w, h = MKFS_W, BUTTON_H
     cy = h / 2 - 1
-    parts = [("mkfs /dev/sda1", "fg!"), ("  (reformat)", "mu")]
+    parts = [("diskutil resetBoard /", "fg!"), ("  (demo)", "mu")]
     cols = sum(len(chunk) for chunk, _ in parts)
     x = (w - cols * ph.CW * ph.SIZE) / 2
     body = (f'<rect width="{w}" height="{h}" rx="6" class="pn"/>'
             f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" rx="6" class="warn-s" stroke-width="1"/>'
             + _hardware_key(w, h, 6) + ph.runs(x, cy + 4.5, parts))
-    return ph.svg(w, h, body, "mkfs /dev/sda1 (reformat)", mode)
+    return ph.svg(w, h, body, "diskutil resetBoard / (demo only)", mode)
 
 
 def static_assets() -> dict[str, str]:
@@ -698,16 +698,16 @@ def help_lines(view: dict, phone: bool = False) -> list[list[tuple[str, str]]]:
     act = "warn"
     if view["status"] == "panicked":
         if phone:
-            return [[("# the disk is lost. ", "mu"), ("press mkfs", act), (" below.", "mu")],
+            return [[("# the volume is lost. ", "mu"), ("run diskutil reset", act), (" below.", "mu")],
                     [("# red marks: corrupted sectors, dormant.", "mu")]]
-        return [[("# the disk is lost. ", "mu"), ("press mkfs", act), (" below for a new one.", "mu")],
+        return [[("# the volume is lost. ", "mu"), ("run diskutil reset", act), (" below for a new one.", "mu")],
                 [("# red marks are the corrupted sectors, now dormant.", "mu")]]
     if view["status"] == "cleaned":
         if phone:
             return [[("# every sector verified.", "mu")], [("# the machine remembers you.", "mu")],
-                    [("# ", "mu"), ("press mkfs", act), (" below to go again.", "mu")]]
+                    [("# ", "mu"), ("run diskutil reset", act), (" below to go again.", "mu")]]
         return [[("# every sector verified. the machine remembers you.", "mu")],
-                [("# ", "mu"), ("press mkfs", act), (" below to reformat and go again.", "mu")]]
+                [("# ", "mu"), ("run diskutil reset", act), (" below and go again.", "mu")]]
     if phone:
         return [[("# ", "mu"), ("tap a sector", act), (", submit the issue as-is.", "mu")],
                 [("# eyes = ack. the board redraws in ~1 min.", "mu")],
@@ -716,7 +716,7 @@ def help_lines(view: dict, phone: bool = False) -> list[list[tuple[str, str]]]:
             [("# the board redraws in ~1 min. first scan is always safe.", "mu")]]
 
 
-BOUNCE = (1, 2, 3, 2, 1, 0)  # systemd's asterisks, ping-ponging in a 6-wide field
+BOUNCE = (1, 2, 3, 2, 1, 0)  # launchd-style activity marker, ping-ponging in a 6-wide field
 BOUNCE_CSS = (
     ".bf{animation:fsbf 1.2s steps(1) infinite;opacity:0}.bf0{opacity:1}"
     + "".join(f".bf{i}{{animation-delay:{i * 0.2:.1f}s}}" for i in range(1, len(BOUNCE)))
@@ -725,14 +725,14 @@ BOUNCE_CSS = (
 
 
 def state_line(view: dict, x: float, y: float, size: float, animate: bool) -> str:
-    """The systemd status column: [ *** ] / [FAILED] / [  OK  ]."""
+    """The macOS volume-check status column: [ *** ] / [FAILED] / [ OK ]."""
     if view["status"] == "panicked":
         return ph.runs(x, y, [("[", "mu"), ("FAILED", "red!"), ("] ", "mu"),
                               (f"kernel panic at {view['panic_cell']}", "red")], size)
     if view["status"] == "cleaned":
-        return ph.runs(x, y, [("[", "mu"), ("  OK  ", "acc!"), ("] ", "mu"), ("/dev/sda1 is clean", "acct")], size)
+        return ph.runs(x, y, [("[", "mu"), ("  OK  ", "acc!"), ("] ", "mu"), ("Macintosh HD verified", "acct")], size)
     cw = ph.CW * size
-    out = [ph.runs(x, y, [("[", "mu"), ("      ", "mu"), ("] ", "mu"), ("a start job is running", "fg"),
+    out = [ph.runs(x, y, [("[", "mu"), ("      ", "mu"), ("] ", "mu"), ("volume verification running", "fg"),
                           (" (no limit)", "mu")], size)]
     frames = BOUNCE if animate else BOUNCE[:1]
     for i, pos in enumerate(frames):
@@ -884,15 +884,15 @@ def panel_alt(view: dict) -> str:
     if view["status"] == "panicked":
         head = f"FAILED: kernel panic at {view['panic_cell']}."
     elif view["status"] == "cleaned":
-        head = "OK: /dev/sda1 is clean."
+        head = "OK: Macintosh HD verified."
     else:
-        head = "a start job is running (no limit)."
+        head = "volume verification running (no limit)."
     ops = "; ".join(f"{op['date']} {op['login']} {op['op']}: {op['label']}" for op in view["ops"]) or "none"
     fame = ", ".join(f"{login} x{n}" for login, n in view["fame"]) or "vacant"
     shame = ", ".join(f"{login} x{n}" for login, n in view["shame"]) or "vacant"
     corrupt = " ".join(text for text, _ in corrupt_lines(view)).rstrip(".") + "."
     helps = " ".join("".join(chunk for chunk, _ in parts).lstrip("# ") for parts in help_lines(view))
-    return (f"fsck status for /dev/sda1: {head} board {view['board_line']}. "
+    return (f"diskutil status for Macintosh HD: {head} board {view['board_line']}. "
             f"{view['done']} of {CLEAN_TOTAL} sectors verified ({view['pct']}%). corrupt: {corrupt} "
             f"totals: {totals_text(view)}. last ops: {ops}. hall of fame: {fame}. hall of shame: {shame}. {helps}")
 
@@ -956,7 +956,7 @@ def render_cell(state: dict, cell: str, mines: set[str] | None) -> str:
         if cell in revealed:
             return digit_pic(cell, revealed[cell])
         url = html.escape(issue_url(f"atlasd|fsck|{cell}", SCAN_BODY.format(cell=cell)))
-        return f'<a href="{url}">{tile_pic("hidden", TILE, TILE, f"scan {cell}", f"fsck {cell}")}</a>'
+        return f'<a href="{url}">{tile_pic("hidden", TILE, TILE, f"scan {cell}", f"diskutil scan {cell}")}</a>'
     # Dead board (panicked or cleaned): everything is face-up, nothing is clickable.
     mines = mines or set()
     if cell in mines:
@@ -1000,7 +1000,7 @@ def render_fsck_block(state: dict, stats: dict, salt: str) -> str:
     keys = [key_link(button_url(), "button", BUTTON_W, "DO NOT PRESS", "nothing happens. probably.")]
     if can_reformat(state):
         keys.append(key_link(reformat_url(), "mkfs", MKFS_W,
-                             "mkfs /dev/sda1 (reformat): bring up a fresh board", "wipe /dev/sda1, seed a new board"))
+                             "diskutil reset board: bring up a fresh APFS board", "reset the demo board"))
     return ("<p>\n" + panel_pic(view) + render_board(state, salt) + '<br clear="all">\n</p>\n\n'
             + "<p>\n" + "\n".join(keys) + "\n</p>")
 
@@ -1082,11 +1082,11 @@ def scan_reply(state: dict, info: dict, actor: str) -> str:
     result = info["result"]
     prefix = ""
     if info["auto_reformatted"]:
-        prefix = f"mkfs.atlasd: previous board was dead; auto-reformatted. board #{board} is online.\n"
+        prefix = f"diskutil.atlasd: previous board was dead; APFS demo reset. board #{board} is online.\n"
 
     if result == "dup":
         return prefix + (
-            f"fsck: sector {info['cell']} was already verified on board #{board}. "
+            f"diskutil: sector {info['cell']} was already verified on board #{board}. "
             "the daemon logs your enthusiasm and returns to idle."
         )
     if result == "panic":
@@ -1098,12 +1098,12 @@ def scan_reply(state: dict, info: dict, actor: str) -> str:
         )
     if result == "clean":
         return prefix + (
-            f"fsck complete: /dev/sda1 is CLEAN. all {CLEAN_TOTAL} sectors of board #{board} verified.\n"
+            f"diskutil: Macintosh HD verified. all {CLEAN_TOTAL} sectors of board #{board} checked.\n"
             f"operator {actor} takes the credit. the daemon nods, almost imperceptibly.\n"
             "file `atlasd|fsck|reformat` whenever you feel like doing it all again."
         )
     return prefix + (
-        f"fsck: sector {info['cell']} verified. {info['adj']}/8 adjacent sectors report corruption.\n"
+        f"diskutil: sector {info['cell']} verified. {info['adj']}/8 adjacent sectors report corruption.\n"
         f"{info['opened']} sector(s) opened this pass — {done}/{CLEAN_TOTAL} verified on board #{board}. "
         "carry on, operator."
     )
@@ -1132,7 +1132,7 @@ def handle_reformat(actor: str, readme: str) -> str:
         save_json(STATS_PATH, stats)
         render_readme(readme, state, stats, salt)
         return (
-            "mkfs.atlasd: refused. fsck in progress; finish your shift, operator.\n"
+            "diskutil.atlasd: refused. volume verification in progress; finish your shift, operator.\n"
             f"(board #{state['board_number']} stands at {done}/{CLEAN_TOTAL} sectors verified. "
             "the disk outlives us all.)"
         )
@@ -1142,7 +1142,7 @@ def handle_reformat(actor: str, readme: str) -> str:
     save_json(STATS_PATH, stats)
     render_readme(readme, state, stats, salt)
     return (
-        f"mkfs.atlasd: wiping /dev/sda1... done. board #{state['board_number']} is online, "
+        f"diskutil.atlasd: resetting the APFS demo board... done. board #{state['board_number']} is online, "
         f"{MINE_COUNT} corrupted sectors seeded.\n"
         "the first scan is always safe. after that you are on your own, operator."
     )
@@ -1385,9 +1385,9 @@ def self_test() -> None:
     def dark_panel(board_state: dict, board_stats: dict, board_salt: str) -> str:
         return render_panels(board_state, board_stats, board_salt)[panel_paths(panel_seq(board_stats))["dark"]]
 
-    assert "a start job is running" in dark_panel(state, stats, salt)
+    assert "volume verification running" in dark_panel(state, stats, salt)
     assert "FAILED" in dark_panel(panic_state, stats, salt)
-    assert "is clean" in dark_panel(final, stats, salt)
+    assert "Macintosh HD verified" in dark_panel(final, stats, salt)
     assert "scan again" not in dark_panel(panic_state, stats, salt), "a dead board has nothing to scan"
     assert BOARD_W <= 279 and BOARD_W + 20 + PANEL_W <= 831, "board must fit a 360px phone and a 1280px desktop"
 

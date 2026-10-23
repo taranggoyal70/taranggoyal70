@@ -2,9 +2,9 @@ atlas: 0 days since last spontaneous rewrite
 boot: unified memory online. context remains the scarce resource.
 init: hackathons mounted, trophies returned, sleep did not
 kernel: Apple Silicon detected. fans remain theoretical. [OK]
-systemd: started coffee.service (cold brew backend)
+launchd: started com.tarang.coffee (cold brew backend)
 cron: rewrite everything in rust (deferred, again)
-fsck: reminder — the disk is fine, the user is not
+diskutil: reminder — the volume is fine, the user is not
 audio: voice agent said something. probably fine.
 mem: unified memory detected. chrome has plans.
 net: pinging prod... prod answered. suspicious.

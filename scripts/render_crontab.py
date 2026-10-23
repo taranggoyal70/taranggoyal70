@@ -2,7 +2,7 @@
 
 The block lives inside an HTML <pre> in README.md, right after the first prompt:
 
-    <pre><b>tarang@atlas:~$ crontab -l</b><!-- CRONTAB:START -->
+    <pre><b>tarang@atlas-mac ~ % crontab -l</b><!-- CRONTAB:START -->
     ...rendered here...
     <!-- CRONTAB:END --></pre>
 
@@ -14,7 +14,7 @@ commit. The typed pipeline is shown in full and its output is emulated exactly
 invented. If git is unavailable the receipts are left out and the crontab
 still renders.
 
-Run from the repo root: python scripts/render_crontab.py [--readme PATH]
+Run from the repo root on macOS: python3 scripts/render_crontab.py [--readme PATH]
 """
 
 from __future__ import annotations
@@ -39,9 +39,9 @@ MAX_WIDTH = 72  # visible columns per line (links do not count, their text does)
 
 # Only the comments are hardcoded; workflows may appear or disappear freely.
 COMMENTS = {
-    "atlasd-ops.yaml": "visitor input: fsck, the button",
+    "atlasd-ops.yaml": "visitor input: diskutil board",
     "profile-summary.yaml": "an LLM rewrites the boot screen",
-    "terminal-hero.yaml": "reroll the POST (1-in-8: panic)",
+    "terminal-hero.yaml": "startup check; panic odds 1:8",
 }
 DEFAULT_COMMENT = "undocumented daemon"
 TIMEZONE_LINE = "CRON_TZ=UTC"  # GitHub Actions cron is always UTC; say so like a real crontab

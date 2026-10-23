@@ -19,7 +19,7 @@ render, not an empty one: one bad hand edit must not strip every link.
 
 Never blank: everything renders in memory first; on any failure the script
 warns, keeps the old files and exits 0. Missing markers warn and exit 0.
-Run from the repo root: python scripts/render_hacklog.py [--dry-run]
+Run from the repo root on macOS: python3 scripts/render_hacklog.py [--dry-run]
 """
 
 from __future__ import annotations
@@ -176,7 +176,7 @@ def slugify(name: str, taken: set[str]) -> str:
 def load_records(path: Path) -> dict[str, dict]:
     """Raises (so main keeps the old panes) when the file is missing or broken."""
     try:
-        data = json.loads(path.read_text(encoding="utf-8-sig"))  # -sig: PowerShell 5.1 writes a BOM
+        data = json.loads(path.read_text(encoding="utf-8-sig"))  # -sig tolerates a BOM from exports
     except (OSError, ValueError) as error:
         raise ValueError(f"{path} unreadable ({error})") from error
     if not isinstance(data, dict):
@@ -361,7 +361,7 @@ def pane_label(ship: Ship, index: int, active: bool) -> str:
     facts = [x for x in (ship.lang, stats_line(ship).replace("  ", ", ")) if x]
     if facts:
         bits.append(", ".join(facts) + ".")
-    bits.append(f"$ cd ~/ships/{ship.slug}")
+    bits.append(f"% cd ~/Developer/{ship.slug}")
     return " ".join(bits)
 
 
@@ -430,7 +430,7 @@ def pane_svg(ship: Ship, index: int, active: bool, mode: str, phone: bool = Fals
         body.append(ph.runs(tx, y_rows + k * lh, [(label, "mu"), (" " * (7 - len(label)), "")] + parts, size))
 
     # bottom row: the prompt, the cursor (active pane only), repo stats (desktop).
-    # The path gets what "$ " and " <cursor> " leave next to the stats.
+    # The path gets what "% " and " <cursor> " leave next to the stats.
     def path_room(stats_text: str) -> int:
         return cols - 2 - (len(stats_text) + 3 if stats_text else 2)
 

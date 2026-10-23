@@ -3,16 +3,16 @@
 Writes three SVGs (all drawn through scripts/phosphor.py):
   assets/hero.svg        desktop, dark, 846 wide, reboot-on-arrival animation
   assets/hero-light.svg  desktop, safe mode (light), no animation at all
-  assets/hero-phone.svg  phone, dark, 360 wide, same reboot with a shorter POST
+  assets/hero-phone.svg  phone, dark, 360 wide, same reboot with shorter startup diagnostics
 
 The session has four panes: 0 whoami (the name in dot matrix and the only
 copy of the hackathon record on the page), 1 htop (the LLM daemon's process
 table from assets/status.json), 2 clock-mode (time since you attached) and
-3 journalctl -f (real events only: stargazers, fsck ops, the bot's own
+3 log stream --style compact (real events only: stargazers, disk checks, the bot's own
 commits, the MOTD, plus a few fixed jokes that never pretend to be events).
 
 Motion contract: t=0 IS the finished session. At ~0.6s it jitters, the CRT
-power-cycles (curtains whose default opacity is 0), the BIOS POSTs on the dark
+power-cycles (curtains whose default opacity is 0), startup diagnostics run on the dark
 tube, and at ~3.2s the panes re-attach. With reduced motion or a frozen
 renderer you get the finished session and a `--:--` clock.
 
@@ -24,9 +24,9 @@ seed values. All three SVGs render in memory first; files are written only if
 every render succeeded, and only when they changed.
 
 Run from the repo root:
-    python scripts/render_hero.py                      # write all three SVGs
-    python scripts/render_hero.py --dry-run            # print the plan, write nothing
-    python scripts/render_hero.py --program kernel_panic --out-dir .preview/hero/out
+    python3 scripts/render_hero.py                      # write all three SVGs
+    python3 scripts/render_hero.py --dry-run            # print the plan, write nothing
+    python3 scripts/render_hero.py --program kernel_panic --out-dir .preview/hero/out
 """
 
 from __future__ import annotations
@@ -73,7 +73,7 @@ BOOT_PROGRAMS = ("standard", "memtest+", "scramble")
 PROGRAMS = BOOT_PROGRAMS + ("kernel_panic",)
 PANIC_ODDS = 8  # kernel_panic fires on exactly 1-in-8 seeds
 PANIC_TRACE = (
-    "KERNEL PANIC: caffeine buffer underrun in module sleep.ko",
+    "KERNEL PANIC: caffeine buffer underrun in com.apple.powermanagement",
     "Call trace:",
     "  at hackathon.sleep() -- not implemented",
     "  at demo.rehearse(skipped=True)",
@@ -320,15 +320,15 @@ def fsck_entries() -> list[Entry]:
         if result == "panic" and cell:
             entries.append(Entry(when, "fsck", f"{cell} KERNEL PANIC", cls="red"))
         elif result == "clean":
-            entries.append(Entry(when, "fsck", f"/dev/sda1 clean. {login} did that."))
+            entries.append(Entry(when, "diskutil", f"Macintosh HD verified. {login} did that."))
         elif result == "reformat":
             if isinstance(board, int) and not isinstance(board, bool) and notable and i == notable[-1]:
                 # the newest reformat is the one that brought up the current board
-                entries.append(Entry(when, "mkfs", f"board #{board} online, 10 corrupt"))
+                entries.append(Entry(when, "diskutil", f"board #{board} online, 10 corrupt"))
             else:
-                entries.append(Entry(when, "mkfs", "/dev/sda1 reformatted"))
+                entries.append(Entry(when, "diskutil", "Macintosh HD board reset"))
         elif result == "ok" and cell:
-            entries.append(Entry(when, "fsck", f"{cell} verified by {login}"))
+            entries.append(Entry(when, "diskutil", f"{cell} verified by {login}"))
     return entries
 
 
@@ -376,20 +376,20 @@ def journal(inp: Inputs, safe: bool) -> list[Entry]:
     dated.sort(key=lambda e: e.when or inp.now)
     panic: list[Entry] = []
     if inp.panic:
-        panic.append(Entry(inp.now, "kernel", "panic in sleep.ko. recovered. mostly.", cls="red", unit_cls="red"))
+        panic.append(Entry(inp.now, "kernel", "panic in powermanagement. recovered. mostly.", cls="red", unit_cls="red"))
 
     def visitor(msg: str) -> Entry:
         return Entry(None, "tty2", f"1 visitor attached. {msg}", cls="warn", unit_cls="warn!", label="now")
 
     if safe:
-        # Safe mode never POSTs, so the jokes replace this render's own lines (the boot
+        # Safe mode skips startup diagnostics, so the jokes replace this render's own lines (the boot
         # line, and the F3 CTA the F-key bar repeats right below): every real event fits.
         return dated + panic + [
             Entry(inp.now, "video", "LIGHT MODE detected. phosphor integrity: compromised.", cls="warn"),
-            Entry(inp.now, "hint", "the real BIOS only POSTs in the dark.", cls="warn"),
+            Entry(inp.now, "hint", "startup diagnostics only glow in dark mode.", cls="warn"),
             visitor("squinting."),
         ]
-    boot = Entry(inp.now, "boot", f"POST re-rendered, seed {inp.seed_label}")
+    boot = Entry(inp.now, "boot", f"startup check re-rendered, seed {inp.seed_label}")
     postfix = Entry(inp.now, "postfix", "port 25 open. building something weird? F3.")
     return dated + [boot] + panic + [postfix, visitor("hello, you.")]
 
@@ -620,7 +620,7 @@ def post_script(inp: Inputs, phone: bool) -> Post:
         t += dt if parts else 0.0
 
     if phone:
-        add([("ATLASD Product BIOS v8.0", "acc!")])
+        add([("ATLASD macOS Console v8.0", "acc!")])
         add([("(C) 2021-2026, Tarang Goyal Labs", "acc")])
         add([(f"{ph.MACHINE}  build ", "acc"), (inp.stamp, "fg")], 0.1)
         add([])
@@ -628,7 +628,7 @@ def post_script(inp: Inputs, phone: bool) -> Post:
         add([("GPU  ", "acc"), ("Integrated Apple GPU", "fg")])
         label = "Checks "
     else:
-        add([("ATLASD Product BIOS v8.0", "acc!"), (", evidence before confidence", "acc")])
+        add([("ATLASD macOS Console v8.0", "acc!"), (", evidence before confidence", "acc")])
         add([("Copyright (C) 2021-2026, Tarang Goyal Labs", "acc")])
         add([(f"{ph.MACHINE}   build ", "acc"), (inp.stamp, "fg")], 0.1)
         add([])
@@ -650,7 +650,7 @@ def post_script(inp: Inputs, phone: bool) -> Post:
     devices = (("evidence ledger", "bound to tarang", "acc"),
                ("agent control plane", "online", "acc"),
                ("cold brew controller", "draining", "fg"),
-               ("sleep.ko", "NOT FOUND", "warn!"))
+               ("pmset sleep", "NOT FOUND", "warn!"))
     last = len(devices) - 1
     for i, (dev, status, cls) in enumerate(devices):
         bus = "" if phone else (f" 00  0{i}   " if i < last else " 01  00   ")
@@ -734,7 +734,7 @@ def post_layer(inp: Inputs, width: float, height: float, x0: float, y0: float, l
     # the typed command: a canvas-coloured cover slides right in steps; the cursor rides its edge
     if script.type_row >= 0:
         y = y0 + script.type_row * lh
-        prompt = "$ " if phone else ph.PROMPT
+        prompt = "% " if phone else ph.PROMPT
         cmd = f"tmux attach -t {ph.HOST}"
         tw = len(cmd) * cw
         tx = x0 + len(prompt) * cw
@@ -748,9 +748,9 @@ def post_layer(inp: Inputs, width: float, height: float, x0: float, y0: float, l
         unfiltered.append(f"<g{shown}>{typer}</g>")  # outside the glow: a blurred cover would show
     # the BIOS footer (bottom of the tube, like every POST screen of the 90s)
     stamp = inp.now.strftime("%m/%d/%y" if phone else "%m/%d/%Y")
-    board = f"B850A-{ph.HOST.upper()}" if phone else f"B850A-{ph.HOST.upper()}-5080"  # ROG Strix B850-A
-    footer = [[("Press ", "mu"), ("DEL", "fg!"), (" to enter SETUP", "mu")]
-              + ([] if phone else [(", ", "mu"), ("ESC", "fg!"), (" to skip memory test", "mu")]),
+    board = f"MAC-{ph.HOST.upper()}" if phone else f"APPLE-SILICON-{ph.HOST.upper()}"
+    footer = [[("Hold ", "mu"), ("POWER", "fg!"), (" for Startup Options", "mu")]
+              + ([] if phone else [(", ", "mu"), ("⌘R", "fg!"), (" for Recovery", "mu")]),
               [(f"{stamp}-{board}-{inp.stamp[:4].upper()}", "mu")]]
     fy = height - 16 - lh
     text.append(f"<g{motion.window(T_POST + 0.02, script.end)}>"
@@ -990,7 +990,7 @@ def desktop(inp: Inputs, mode: str) -> str:
 
     # --- 0 whoami ------------------------------------------------------------------------
     p0 = [ph.pane_title(0, XS, PY + 14, "0 whoami", f"tarang@{ph.HOST}"),
-          ph.runs(x0, PY + 42, [("$ ", "acc!"), ("whoami", "fg")], size)]
+          ph.runs(x0, PY + 42, [("% ", "acc!"), ("whoami", "fg")], size)]
     px = 7
     name_y = PY + 54
     zx = x0 + (6 * 6 - 1 + 3) * px            # TARANG, then a 3-dot thin space
@@ -1042,8 +1042,8 @@ def desktop(inp: Inputs, mode: str) -> str:
     p2.append(ph.text(mid, PY + 156, caption[1], "mu", size, anchor="middle"))
     s.append(f"<g{motion.reveal(attach + 0.06, 0.24)}>{''.join(p2)}</g>")
 
-    # --- 3 journalctl -f (the active pane) ------------------------------------------------------
-    p3 = [ph.pane_title(XS, W, YC + 14, "3 journalctl -f", "atlasd", active=True)]
+    # --- 3 macOS unified log stream (the active pane) -------------------------------------------
+    p3 = [ph.pane_title(XS, W, YC + 14, "3 log stream --style compact", "atlasd", active=True)]
     jx = XS + 16
     jy = YC + 42
     max_rows = int((H - 14 - jy) // lh) + 1
@@ -1083,7 +1083,7 @@ def phone(inp: Inputs) -> str:
     # --- 0 whoami: TARANG over GOYAL, bigger dots ---------------------------------------------
     y = 38
     p0 = [ph.pane_title(0, WP, y + 14, "0 whoami", f"tarang@{ph.HOST}", size=11),
-          ph.runs(x0, y + 38, [("$ ", "acc!"), ("whoami", "fg")], size)]
+          ph.runs(x0, y + 38, [("% ", "acc!"), ("whoami", "fg")], size)]
     px = 9
     tarang_y = y + 50
     goyal_y = tarang_y + 8 * px
@@ -1136,8 +1136,8 @@ def phone(inp: Inputs) -> str:
     y += 14
     panes.append(f"<g{motion.reveal(attach + 0.08, 0.24)}>{''.join(p1)}</g>")
 
-    # --- 3 journalctl -f (active): the last 4 events + hello, you -----------------------------------------
-    p3 = [ph.pane_title(0, WP, y + 14, "3 journalctl -f", "atlasd", active=True, size=11)]
+    # --- 3 macOS unified log stream (active): the last 4 events + hello, you --------------------
+    p3 = [ph.pane_title(0, WP, y + 14, "3 log stream", "atlasd", active=True, size=11)]
     jy = y + 40
     entries = journal(inp, safe=False)
     recent = [e for e in entries[:-1] if e.unit != "postfix"][-4:]
@@ -1168,8 +1168,8 @@ def describe(inp: Inputs, safe: bool) -> str:
     if safe:
         boot = "Safe mode: the light theme gets the session without the boot animation."
     else:
-        boot = ("On load the screen power-cycles like a CRT, the ATLASD BIOS runs its POST"
-                + (" and hits a kernel panic (caffeine buffer underrun in sleep.ko)" if inp.panic else "")
+        boot = ("On load the screen power-cycles like a CRT, ATLASD runs Apple Silicon startup diagnostics"
+                + (" and hits a kernel panic (caffeine underrun in powermanagement)" if inp.panic else "")
                 + ", then the tmux session re-attaches.")
     events = []
     for e in journal(inp, safe):

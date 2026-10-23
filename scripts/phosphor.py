@@ -41,15 +41,16 @@ LINE = 20        # body line height
 
 # The machine is Tarang's public product workstation. Every renderer reads the
 # identity, prompt, and verified win count from this one module.
-HOST = "atlas"
-MACHINE = "Atlas Product Workstation"
-PROMPT = f"tarang@{HOST}:~$ "
+HOST = "atlas-mac"
+MACHINE = "Atlas Mac Workstation"
+# macOS ships with zsh and its default prompt ends in %, not the Linux-style $.
+PROMPT = f"tarang@{HOST} ~ % "
 
 # The lifetime hackathon record (the hero meter, tarang.ansi). The log in
 # var/log/hackathons.log holds only the greatest hits.
 WON, ENTERED = 8, 13
 
-WINDOWS = ("boot", "ships", "fsck", "etc")
+WINDOWS = ("boot", "ships", "diskutil", "macos")
 
 DARK = {
     "canvas": "#0D1117",  # GitHub dark page
@@ -202,7 +203,7 @@ def text(x: float, y: float, s: str, cls: str = "fg", size: float = SIZE, anchor
 
 def runs(x: float, y: float, parts: list[tuple[str, str]], size: float = SIZE, extra: str = "") -> str:
     """One terminal line built from colored runs, each placed on the grid.
-    A class ending in '!' is bold: [("$ ", "acc"), ("whoami", "fg!")]."""
+    A class ending in '!' is bold: [("% ", "acc"), ("whoami", "fg!")]."""
     out, col = [], 0
     cw = CW * size
     for chunk, cls in parts:

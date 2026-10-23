@@ -1,8 +1,8 @@
-"""Render the PASSWD block: the newest stargazers as /etc/passwd lines.
+"""Render the macOS USERS block: the newest stargazers as dscl-style rows.
 
 The block lives inside an HTML <pre> in README.md, right after the prompt:
 
-    <pre><b>tarang@atlas:~$ tail -n 4 /etc/passwd</b><!-- PASSWD:START -->
+    <pre><b>tarang@atlas-mac ~ % dscl . -list /Users UserShell</b><!-- PASSWD:START -->
     ...rendered here...
     <!-- PASSWD:END --></pre>
 
@@ -12,8 +12,8 @@ starts with a few fixed system accounts, so `tail -n 4` still shows four lines
 while there are fewer than four stargazers. Then a typed comment names the
 next free uid.
 
-The stargazers endpoint needs a token (it 401s anonymously), so run it as
-GITHUB_TOKEN=... python scripts/render_passwd.py  (CI always has one).
+The stargazers endpoint needs a token (it 401s anonymously), so run it in zsh as
+GITHUB_TOKEN=... python3 scripts/render_passwd.py  (CI always has one).
 No token, offline, or a bad API day: warn and leave the block untouched.
 """
 
@@ -41,13 +41,13 @@ SAFE_LOGIN = re.compile(r"[^A-Za-z0-9-]")
 DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
 UNKNOWN_DATE = "????-??-??"  # an entry without a usable starred_at
 
-# The head of the fictional /etc/passwd, in file order. Stargazer accounts are
+# The head of the fictional macOS directory, in file order. Stargazer accounts are
 # appended after these, so they only show while there are < 4 stargazers.
 SYSTEM_ACCOUNTS = (
-    "nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin",
-    "sleep:x:997:997:optional dependency:/nonexistent:/usr/sbin/nologin",
-    "atlasd:x:998:998:ATLASD daemon:/var/lib/atlasd:/usr/sbin/nologin",
-    "tarang:x:999:100:Tarang Goyal,,,:/home/tarang:/usr/bin/zsh",
+    "_nobody                         /usr/bin/false",
+    "_spotlight                       /usr/bin/false",
+    "atlasd                           /bin/zsh",
+    "tarang                           /bin/zsh",
 )
 
 
@@ -102,16 +102,12 @@ def star_date(entry: dict) -> str:
 
 
 def passwd_fields(login: str, uid: int, date: str) -> tuple[str, str]:
-    """(login, rest-of-line). Long logins shed detail until the line fits.
-    The star date is the point of the line, so boilerplate goes first:
-    shorter shell, bare date, numbered home directory, and only then the date."""
+    """Return a dscl-style shell row that stays inside the terminal width."""
     candidates = (
-        f":x:{uid}:100:starred {date}:/home/{login}:/usr/bin/zsh",
-        f":x:{uid}:100:starred {date}:/home/{login}:/bin/zsh",
-        f":x:{uid}:100:{date}:/home/{login}:/bin/zsh",
-        f":x:{uid}:100:starred {date}:/home/u{uid}:/bin/zsh",
-        f":x:{uid}:100:{date}:/home/u{uid}:/bin/zsh",
-        f":x:{uid}:100::/home/u{uid}:/bin/sh",
+        f"{' ' * max(1, 32 - len(login))}/bin/zsh  # starred {date}",
+        f"{' ' * max(1, 32 - len(login))}/bin/zsh  # {date}",
+        f" /bin/zsh  # uid {uid}",
+        " /bin/zsh",
     )
     for rest in candidates:
         if len(login) + len(rest) <= MAX_WIDTH:
@@ -140,7 +136,7 @@ def render(stargazers: list[tuple[int, dict]], total: int, repo: str = REPO) -> 
 
     uid = FIRST_UID + total
     closing = (
-        f"<b>{html.escape(PROMPT)}# uid {uid} is unclaimed. "
+        f"<b>{html.escape(PROMPT)}# UniqueID {uid} is unclaimed. "
         f'<a href="https://github.com/{html.escape(repo)}">star this repo</a> to claim it.</b>'
     )
     lines = rows[-TAIL_COUNT:] + [closing]

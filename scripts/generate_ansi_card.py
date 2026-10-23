@@ -9,7 +9,7 @@ to the nearest xterm-256 entries so the card looks the same in every terminal
 that has 256 colors (truecolor is not assumed): electric purple for lit and
 active things, amber only where the reader can act, the terminal's own
 foreground for body text and links, grays for everything else.
-Run from the repo root: python scripts/generate_ansi_card.py
+Run from the repo root on macOS: python3 scripts/generate_ansi_card.py
 """
 
 import argparse
@@ -172,7 +172,7 @@ def build_card(status: str) -> str:
 
     lines += [""] * 12
     lines += [
-        paint("$ ", PHOSPHOR, bold=True) + paint("tarang --help", INK, bold=True),
+        paint("% ", PHOSPHOR, bold=True) + paint("tarang --help", INK, bold=True),
         option("--build", "takes the whole product loop"),
         option("--prove", "measures before making claims"),
         option("--coffee", "required input voltage"),

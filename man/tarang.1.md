@@ -12,7 +12,7 @@ TARANG(1)                  User Commands                  TARANG(1)
 
 ## DESCRIPTION
 
-**tarang** is a product process resident on atlas. It works across model behavior,
+**tarang** is a product process resident on atlas-mac. It works across model behavior,
 frontend, backend, integrations, deployment, and evaluation. It prefers a complete
 loop with evidence over a polished demo with an invisible failure mode.
 

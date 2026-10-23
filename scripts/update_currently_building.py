@@ -13,8 +13,8 @@ Also owns the BUILD_PLATE block: one plain line inside the footer <pre>.
 Contract: never blank anything. status.json is only rewritten after the whole
 payload validated; a missing BUILD_PLATE marker is a warning, not a crash.
 Run from the repo root:
-    python scripts/update_currently_building.py --fallback-only
-    python scripts/update_currently_building.py --readme .preview/hero/README.md --status .preview/hero/status.json
+    python3 scripts/update_currently_building.py --fallback-only
+    python3 scripts/update_currently_building.py --readme .preview/hero/README.md --status .preview/hero/status.json
 """
 
 import argparse

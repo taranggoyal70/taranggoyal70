@@ -2,7 +2,7 @@
 
 These never change between runs, so CI does not call this. Re-run it by hand
 after touching phosphor.py or the window list, and commit assets/chrome/.
-Run from the repo root: python scripts/render_chrome.py
+Run from the repo root on macOS: python3 scripts/render_chrome.py
 """
 
 from __future__ import annotations
@@ -15,9 +15,9 @@ OUT = Path("assets/chrome")
 
 # Window index -> the command "running" in it (tmux shows the pane title on the right).
 PANE_TITLES = {
-    1: "sort -r /var/log/hackathons.log | head -4",
-    2: "fsck -n /dev/sda1",
-    3: "crontab -l; tail /etc/passwd",
+    1: "sort -r ~/Library/Logs/hackathons.log | head -4",
+    2: "diskutil verifyVolume /",
+    3: "launchctl list | grep atlasd; dscl . -list /Users UserShell",
 }
 
 # F-key bar under the hero: contact, in the form of a TUI function-key row.
