@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="32" viewBox="0 0 118 32" role="img" aria-labelledby="title desc">
+  <title id="title">F7 locus</title>
+  <desc id="desc">F7 locus</desc>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+
+  </style>
+  <rect width="118" height="32" rx="12" fill="#ffffff"/>
+  <rect x="1" y="1" width="116" height="30" rx="6" fill="#f6f8fa" stroke="#d1d9e0"/><rect x="7" y="7" width="25" height="18" rx="3" fill="#7b2cbf"/><text x="19.5" y="20" fill="#ffffff" font-size="9" font-weight="800" text-anchor="middle" class="">F7</text><text x="40" y="21" fill="#1f2328" font-size="9" font-weight="600" text-anchor="start" class="">locus</text>
+</svg>

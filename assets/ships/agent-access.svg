@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="414" height="176" viewBox="0 0 414 176" role="img" aria-labelledby="title desc">
+  <title id="title">Open AGENT ACCESS: Turns OpenAPI contracts into scoped capabilities and signed receipts.</title>
+  <desc id="desc">Open AGENT ACCESS: Turns OpenAPI contracts into scoped capabilities and signed receipts.</desc>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+
+  </style>
+  <rect width="414" height="176" rx="12" fill="#0d1117"/>
+  <rect x="1" y="1" width="412" height="174" rx="7" fill="#151b23" stroke="#3d444d"/><text x="14" y="20" fill="#9198a1" font-size="8" font-weight="600" text-anchor="start" class="">tarang@atlas:~/ships</text><text x="400" y="20" fill="#ffb000" font-size="8" font-weight="800" text-anchor="end" class="">SANDBOX</text><line x1="10" y1="28" x2="404" y2="28" stroke="#3d444d" stroke-width="1" class=""/><text x="14" y="51" fill="#9198a1" font-size="8" font-weight="700" text-anchor="start" class="">IDENTITY FOR AI-AGENT CUSTOMERS</text><text x="14" y="80" fill="#ffb000" font-size="20" font-weight="800" text-anchor="start" class="">AGENT ACCESS</text><text x="14" y="103" fill="#f0f6fc" font-size="9" font-weight="600" text-anchor="start" class="">Turns OpenAPI contracts into scoped capabilities</text><text x="14" y="119" fill="#f0f6fc" font-size="9" font-weight="600" text-anchor="start" class="">and signed receipts.</text><line x1="14" y1="132" x2="398" y2="132" stroke="#3d444d" stroke-width="1" class=""/><text x="14" y="150" fill="#9198a1" font-size="8" font-weight="600" text-anchor="start" class="">delegated credentials · idempotent replay · isolated</text><text x="14" y="164" fill="#9198a1" font-size="8" font-weight="600" text-anchor="start" class="">smoke path</text>
+</svg>

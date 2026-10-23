@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="414" height="176" viewBox="0 0 414 176" role="img" aria-labelledby="title desc">
+  <title id="title">Open TICKMARK: A month-end close agent that compiles corrections into deterministic rules.</title>
+  <desc id="desc">Open TICKMARK: A month-end close agent that compiles corrections into deterministic rules.</desc>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+
+  </style>
+  <rect width="414" height="176" rx="12" fill="#ffffff"/>
+  <rect x="1" y="1" width="412" height="174" rx="7" fill="#f6f8fa" stroke="#d1d9e0"/><text x="14" y="20" fill="#59636e" font-size="8" font-weight="600" text-anchor="start" class="">tarang@atlas:~/ships</text><text x="400" y="20" fill="#7b2cbf" font-size="8" font-weight="800" text-anchor="end" class="">MEASURED</text><line x1="10" y1="28" x2="404" y2="28" stroke="#d1d9e0" stroke-width="1" class=""/><text x="14" y="51" fill="#59636e" font-size="8" font-weight="700" text-anchor="start" class="">AUTONOMOUS OFFICE OF THE CFO</text><text x="14" y="80" fill="#7b2cbf" font-size="20" font-weight="800" text-anchor="start" class="">TICKMARK</text><text x="14" y="103" fill="#1f2328" font-size="9" font-weight="600" text-anchor="start" class="">A month-end close agent that compiles</text><text x="14" y="119" fill="#1f2328" font-size="9" font-weight="600" text-anchor="start" class="">corrections into deterministic rules.</text><line x1="14" y1="132" x2="398" y2="132" stroke="#d1d9e0" stroke-width="1" class=""/><text x="14" y="150" fill="#59636e" font-size="8" font-weight="600" text-anchor="start" class="">39% auto-cleared · 100% precision · controller time</text><text x="14" y="164" fill="#59636e" font-size="8" font-weight="600" text-anchor="start" class="">63→47 min</text>
+</svg>

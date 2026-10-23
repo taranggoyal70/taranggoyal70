@@ -10,17 +10,17 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 
 DARK = {
-    "bg": "#070a11", "panel": "#0d1421", "panel2": "#111c2e",
-    "line": "#263650", "text": "#e0ebfa", "muted": "#8293ad",
-    "cyan": "#59e1ff", "violet": "#c38cff", "green": "#a9f0c1",
-    "pink": "#ff7b9c", "amber": "#ffd27a",
+    "bg": "#0d1117", "panel": "#151b23", "panel2": "#21262d",
+    "line": "#3d444d", "text": "#f0f6fc", "muted": "#9198a1",
+    "cyan": "#58d6ff", "violet": "#c04bff", "green": "#7ee787",
+    "pink": "#ff7b9c", "amber": "#ffb000",
 }
 
 LIGHT = {
-    "bg": "#f5f8fc", "panel": "#ffffff", "panel2": "#eaf1f9",
-    "line": "#c7d4e4", "text": "#172235", "muted": "#60718b",
-    "cyan": "#007e9c", "violet": "#7042a8", "green": "#187a4d",
-    "pink": "#b72f57", "amber": "#9c6500",
+    "bg": "#ffffff", "panel": "#f6f8fa", "panel2": "#e6eaef",
+    "line": "#d1d9e0", "text": "#1f2328", "muted": "#59636e",
+    "cyan": "#0969da", "violet": "#7b2cbf", "green": "#1a7f37",
+    "pink": "#b72f57", "amber": "#bc4c00",
 }
 
 
@@ -72,7 +72,7 @@ def base_svg(width: int, height: int, body: str, p: dict[str, str], title: str,
         .cursor,.scan,.flow-a,.flow-b,.flow-c,.pulse,.progress { animation:none; }
       }
     """.strip() if animated else ""
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">
+    content = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">
   <title id="title">{esc(title)}</title>
   <desc id="desc">{esc(title)}</desc>
   <style>
@@ -82,6 +82,7 @@ def base_svg(width: int, height: int, body: str, p: dict[str, str], title: str,
   <rect width="{width}" height="{height}" rx="12" fill="{p['bg']}"/>
   {body}
 </svg>'''
+    return "\n".join(line.rstrip() for line in content.splitlines()) + "\n"
 
 
 def chrome(width: int, p: dict[str, str], label: str, right: str = "") -> str:
@@ -148,7 +149,7 @@ def hero_desktop(p: dict[str, str], animated: bool) -> str:
         txt(34, 78, "0: operator", p["muted"], 11, 700), txt(34, 111, "$ whoami --verbose", p["cyan"], 14, 700),
         txt(34, 154, "TARANG GOYAL", p["text"], 32, 800),
         txt(34, 182, "AI product engineer · full-stack · agents · FDE", p["muted"], 13), rule(34, 202, 500, 202, p["line"]),
-        metric(34, 239, "8×", "wins", p, p["violet"]), metric(132, 239, "37", "public repos", p, p["cyan"]),
+        metric(34, 239, "8×", "wins", p, p["violet"]), metric(132, 239, "39", "public repos", p, p["cyan"]),
         metric(260, 239, "1", "paper", p, p["green"]), metric(350, 239, "0→1", "product scope", p, p["amber"]),
         txt(34, 302, "CURRENT MISSION", p["muted"], 10, 800),
         txt(34, 329, "Take ambiguous customer problems from zero to production.", p["text"], 12, 600),
@@ -175,7 +176,7 @@ def hero_phone(p: dict[str, str]) -> str:
     w, h = 360, 610
     s = [f'<g class="session">', chrome(w, p, "TARANG//OS", "tarang@atlas"), txt(18, 72, "$ whoami --verbose", p["cyan"], 12, 700),
          txt(18, 110, "TARANG GOYAL", p["text"], 27, 800), txt(18, 139, "AI product engineer · full-stack · agents", p["muted"], 11),
-         rule(18, 160, 342, 160, p["line"]), metric(18, 198, "8×", "wins", p, p["violet"]), metric(102, 198, "37", "repos", p, p["cyan"]),
+         rule(18, 160, 342, 160, p["line"]), metric(18, 198, "8×", "wins", p, p["violet"]), metric(102, 198, "39", "repos", p, p["cyan"]),
          metric(184, 198, "1", "paper", p, p["green"]), metric(258, 198, "0→1", "scope", p, p["amber"]),
          txt(18, 257, "$ build --problem-to-users", p["cyan"], 11, 700), flow_graph(44, 302, p, True),
          txt(18, 357, "BUILDER JOURNAL", p["muted"], 10, 800), txt(18, 388, "● AI products", p["muted"], 11),
@@ -234,9 +235,13 @@ def signal_asset(p: dict[str, str], phone: bool = False) -> str:
 
 
 KEYS = [
-    ("F1", "PORTFOLIO", "open full site", "cyan"), ("F2", "GITHUB", "browse all repos", "violet"),
-    ("F3", "SHIPS", "browse products", "green"), ("F4", "PAPER", "read on arXiv", "amber"),
-    ("F5", "LINKEDIN", "open profile", "cyan"), ("F6", "EMAIL", "start a conversation", "pink"),
+    ("F1", "portfolio", "", "cyan"),
+    ("F2", "github", "", "violet"),
+    ("F3", "paper", "", "green"),
+    ("F4", "linkedin", "", "amber"),
+    ("F5", "email", "", "pink"),
+    ("F6", "projects", "", "cyan"),
+    ("F7", "locus", "", "violet"),
 ]
 
 
@@ -244,20 +249,19 @@ def key_asset(item: tuple[str, str, str, str], p: dict[str, str]) -> str:
     code, label, hint, color = item
     accent = p[color]
     body = "".join([
-        f'<rect x="1" y="1" width="256" height="58" rx="9" fill="{p["panel"]}" stroke="{p["line"]}"/>',
-        f'<rect x="1" y="1" width="5" height="58" rx="2" fill="{accent}"/>',
-        f'<rect x="16" y="13" width="38" height="34" rx="6" fill="{p["panel2"]}" stroke="{accent}"/>',
-        txt(35, 35, code, accent, 11, 800, "middle"), txt(68, 26, label, p["text"], 12, 800),
-        txt(68, 44, hint, p["muted"], 9, 500), txt(241, 36, "↗", accent, 17, 700, "end"),
+        f'<rect x="1" y="1" width="116" height="30" rx="6" fill="{p["panel"]}" stroke="{p["line"]}"/>',
+        f'<rect x="7" y="7" width="25" height="18" rx="3" fill="{accent}"/>',
+        txt(19.5, 20, code, p["bg"], 9, 800, "middle"),
+        txt(40, 21, label, p["text"], 9, 600),
     ])
-    return base_svg(258, 60, body, p, f"{code} {label}: {hint}")
+    return base_svg(118, 32, body, p, f"{code} {label}")
 
 
 PROJECTS = [
-    {"slug": "locus", "name": "LOCUS", "type": "STANFORD UNIVERSITY AI HACKATHON WINNER", "color": "violet", "blurb": "Finds the right code and dependencies before an agent starts.", "proof": "15-case benchmark · 100% required-file recall · 53% less context", "stack": "web · REST API · CLI · MCP · Guard · 600+ tests", "status": "LIVE · FLAGSHIP"},
-    {"slug": "gatekit", "name": "GATEKIT", "type": "AGENTFORGE HACKATHON WINNER", "color": "cyan", "blurb": "Stops risky agent actions before they reach production.", "proof": "policy engine · immutable audit log · approvals · published SDK", "stack": "Next.js · TypeScript · Postgres · Clerk · Stripe · Slack", "status": "AGENT SAFETY"},
-    {"slug": "morphic", "name": "MORPHIC", "type": "BETA FUND × GMI CLOUD WINNER", "color": "green", "blurb": "Turns GitHub evidence into adaptive workspaces and reviewable PRs.", "proof": "GitHub sync · durable workflows · isolated Codex runs · approval", "stack": "Next.js · Neon · Upstash · Vercel Workflow · Sandbox", "status": "DEV WORKSPACE"},
-    {"slug": "crowd", "name": "CROWD SYMPHONY", "type": "YC-BACKED STACK AUTH WINNER", "color": "amber", "blurb": "Turns hand gestures into synchronized audio across a crowd.", "proof": "MediaPipe tracking · QR onboarding · real-time multi-device audio", "stack": "Next.js · TypeScript · Web Audio · Vercel Runtime Cache", "status": "LIVE · REAL-TIME"},
+    {"slug": "tickmark", "name": "TICKMARK", "type": "AUTONOMOUS OFFICE OF THE CFO", "color": "violet", "blurb": "A month-end close agent that compiles corrections into deterministic rules.", "proof": "39% auto-cleared · 100% precision · controller time 63→47 min", "stack": "Next.js · TypeScript · Postgres · local model eval", "status": "MEASURED"},
+    {"slug": "locus", "name": "LOCUS", "type": "CONTROL LAYER FOR CODING AGENTS", "color": "cyan", "blurb": "Finds the right code and evidence before a coding agent starts.", "proof": "15-case replay · 100% fix-file recall · 53% median reduction", "stack": "web · REST · CLI · MCP · Guard · Sandbox", "status": "LIVE"},
+    {"slug": "versionless", "name": "VERSIONLESS", "type": "PROOF LAYER FOR AGENT-WRITTEN CODE", "color": "green", "blurb": "Locks tests and contracts, then makes an agent prove the rules stayed intact.", "proof": "exact-commit proof · immutable hashes · fresh-clone verification", "stack": "GitHub Actions · TypeScript · Codex runtime", "status": "VERIFIED"},
+    {"slug": "agent-access", "name": "AGENT ACCESS", "type": "IDENTITY FOR AI-AGENT CUSTOMERS", "color": "amber", "blurb": "Turns OpenAPI contracts into scoped capabilities and signed receipts.", "proof": "delegated credentials · idempotent replay · isolated smoke path", "stack": "Next.js · Neon · OpenAPI · signed receipts", "status": "SANDBOX"},
 ]
 
 
@@ -284,15 +288,22 @@ def project_asset(item: dict[str, str], p: dict[str, str], phone: bool = False) 
         ]
         return base_svg(360, 240, "".join(body), p, f"Open {item['name']}: {item['blurb']}")
 
-    body = "".join([
-        f'<rect x="1" y="1" width="844" height="152" rx="11" fill="{p["panel"]}" stroke="{p["line"]}"/>',
-        f'<rect x="1" y="1" width="7" height="152" rx="3" fill="{accent}"/>', txt(26, 34, item["type"], p["muted"], 9, 800),
-        txt(26, 66, item["name"], accent, 22, 800), txt(276, 65, item["blurb"], p["text"], 12, 600), rule(26, 88, 820, 88, p["line"]),
-        txt(26, 116, item["proof"], p["text"], 11, 600), txt(26, 138, item["stack"], p["muted"], 10),
-        txt(820, 34, item["status"], accent, 9, 800, "end"), f'<rect x="718" y="106" width="102" height="29" rx="6" fill="{p["panel2"]}" stroke="{accent}"/>',
-        txt(769, 125, "OPEN  ↗", accent, 10, 800, "middle"),
-    ])
-    return base_svg(846, 154, body, p, f"Open {item['name']}: {item['blurb']}")
+    blurb = textwrap.wrap(item["blurb"], width=48)
+    proof = textwrap.wrap(item["proof"], width=52)
+    body = [
+        f'<rect x="1" y="1" width="412" height="174" rx="7" fill="{p["panel"]}" stroke="{p["line"]}"/>',
+        txt(14, 20, "tarang@atlas:~/ships", p["muted"], 8, 600),
+        txt(400, 20, item["status"], accent, 8, 800, "end"),
+        rule(10, 28, 404, 28, p["line"]),
+        txt(14, 51, item["type"], p["muted"], 8, 700),
+        txt(14, 80, item["name"], accent, 20, 800),
+    ]
+    for i, line in enumerate(blurb[:2]):
+        body.append(txt(14, 103 + i * 16, line, p["text"], 9, 600))
+    body.append(rule(14, 132, 398, 132, p["line"]))
+    for i, line in enumerate(proof[:2]):
+        body.append(txt(14, 150 + i * 14, line, p["muted"], 8, 600))
+    return base_svg(414, 176, "".join(body), p, f"Open {item['name']}: {item['blurb']}")
 
 
 def project_action_asset(item: dict[str, str], p: dict[str, str], action: str) -> str:
@@ -313,15 +324,18 @@ def project_action_asset(item: dict[str, str], p: dict[str, str], action: str) -
 
 
 WINS = [
-    ("01", "Stanford University AI Hackathon", "WINNER"), ("02", "AWS × INRIX", "WINNER"),
-    ("03", "YC-backed Stack Auth", "WINNER"), ("04", "A10 Networks", "WINNER"),
-    ("05", "AgentForge", "WINNER"), ("06", "Beta Fund × GMI Cloud", "WINNER"),
-    ("07", "SCU Analytical Showdown", "WINNER"), ("08", "Syndicate by Maximor · Track 2", "WINNER"),
+    ("01", "Stanford University AI Hackathon", "WINNER"),
+    ("02", "AWS × INRIX", "WINNER"),
+    ("03", "A10 Networks", "WINNER"),
+    ("04", "AgentForge", "WINNER"),
+    ("05", "Beta Fund × GMI Cloud", "WINNER"),
+    ("06", "SCU Analytical Showdown", "WINNER"),
+    ("07", "Syndicate by Maximor · Track 2", "WINNER"),
 ]
 
 
 def proof_asset(p: dict[str, str]) -> str:
-    b = [chrome(846, p, "3: /var/log/external-proof", "8 wins · 1 paper"), txt(20, 67, "$ verify --source external", p["cyan"], 12, 800)]
+    b = [chrome(846, p, "2: /var/log/proof", "8 wins · 1 paper"), txt(20, 67, "$ verify --source external", p["cyan"], 12, 800)]
     for i, (num, name, result) in enumerate(WINS):
         col, row = i % 2, i // 2
         x, y = 20 + col * 410, 103 + row * 35
@@ -332,9 +346,12 @@ def proof_asset(p: dict[str, str]) -> str:
 
 
 def section_asset(index: str, path: str, detail: str, p: dict[str, str]) -> str:
-    body = "".join([f'<rect x="1" y="1" width="844" height="44" rx="8" fill="{p["panel2"]}" stroke="{p["line"]}"/>',
-                    txt(18, 29, index, p["violet"], 11, 800), txt(58, 29, path, p["text"], 12, 800), txt(828, 29, detail, p["muted"], 10, 600, "end")])
-    return base_svg(846, 46, body, p, f"Section {path}: {detail}")
+    body = "".join([
+        f'<rect x="1" y="1" width="844" height="26" rx="5" fill="{p["panel2"]}" stroke="{p["line"]}"/>',
+        txt(14, 19, f"{index}:{path}", p["text"], 10, 800),
+        txt(832, 19, detail, p["muted"], 9, 600, "end"),
+    ])
+    return base_svg(846, 28, body, p, f"tmux window {index}: {path}")
 
 
 def write(name: str, content: str) -> None:
@@ -351,10 +368,6 @@ def main() -> None:
     write("hero.svg", hero_desktop(DARK, True))
     write("hero-light.svg", hero_desktop(LIGHT, True))
     write("hero-phone.svg", hero_phone(DARK))
-    write("signal.svg", signal_asset(DARK))
-    write("signal-light.svg", signal_asset(LIGHT))
-    write("signal-phone.svg", signal_asset(DARK, True))
-    write("signal-phone-light.svg", signal_asset(LIGHT, True))
     for item in KEYS:
         slug = item[1].lower()
         write(f"keys/{slug}.svg", key_asset(item, DARK))
@@ -364,16 +377,12 @@ def main() -> None:
         write(f"ships/{item['slug']}-light.svg", project_asset(item, LIGHT))
         write(f"ships/{item['slug']}-phone.svg", project_asset(item, DARK, True))
         write(f"ships/{item['slug']}-phone-light.svg", project_asset(item, LIGHT, True))
-        for action in ("live", "source"):
-            write(f"actions/{item['slug']}-{action}.svg", project_action_asset(item, DARK, action))
-            write(f"actions/{item['slug']}-{action}-light.svg", project_action_asset(item, LIGHT, action))
     write("proof.svg", proof_asset(DARK))
     write("proof-light.svg", proof_asset(LIGHT))
     sections = [
-        ("01", "/operator/routes", "every control opens a real destination", "routes"),
-        ("02", "/srv/ships", "four selected products · live demos + source", "ships"),
-        ("03", "/var/log/external-proof", "results verified outside the repo", "proof"),
-        ("04", "/etc/operator", "how I work", "operator"),
+        ("1", "ships", "sort -r /var/log/builds | head -4", "ships"),
+        ("2", "proof", "verify --source external", "proof"),
+        ("3", "etc", "cat /etc/tarang; crontab -l", "operator"),
     ]
     for index, path, detail, slug in sections:
         write(f"sections/{slug}.svg", section_asset(index, path, detail, DARK))
