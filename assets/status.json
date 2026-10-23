@@ -1,21 +1,22 @@
 {
-  "obsession": "agent trust systems",
-  "motd": "all evidence attached. the agent may now proceed.",
+  "obsession": "agent trust evidence",
+  "motd": "the updates are endless. just like the pull requests.",
   "processes": [
     {
-      "command": "locus",
-      "flags": "--slice --evidence",
-      "cpu": 97
+      "command": "beebizy",
+      "flags": "--update --merge",
+      "cpu": 95
     },
     {
-      "command": "beebizy-b2b",
-      "flags": "--review",
-      "cpu": 62
+      "command": "agent-trust",
+      "flags": "--verify --evidence",
+      "cpu": 92
     },
     {
-      "command": "beebizy-www",
-      "flags": "--measure",
-      "cpu": 49
+      "command": "product-eng",
+      "flags": "--focus --real-users",
+      "cpu": 90
     }
-  ]
+  ],
+  "updated": "2026-10-23T22:35:19Z"
 }

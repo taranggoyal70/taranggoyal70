@@ -47,11 +47,11 @@ CRON_TZ=UTC
 <!-- CRONTAB:END --></pre>
 
 <pre><b>tarang@atlas:~$ tail -n 4 /etc/passwd</b><!-- PASSWD:START -->
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
 sleep:x:997:997:optional dependency:/nonexistent:/usr/sbin/nologin
 atlasd:x:998:998:ATLASD daemon:/var/lib/atlasd:/usr/sbin/nologin
 tarang:x:999:100:Tarang Goyal,,,:/home/tarang:/usr/bin/zsh
-guest:x:1000:100:next stargazer:/home/guest:/usr/sbin/nologin
-<b>tarang@atlas:~$ # uid 1001 is unclaimed. <a href="https://github.com/taranggoyal70/taranggoyal70">star this repo</a> to claim it.</b>
+<b>tarang@atlas:~$ # uid 1000 is unclaimed. <a href="https://github.com/taranggoyal70/taranggoyal70">star this repo</a> to claim it.</b>
 <!-- PASSWD:END --></pre>
 
 <details>
@@ -362,6 +362,6 @@ curl -sL https://raw.githubusercontent.com/taranggoyal70/taranggoyal70/main/tara
 [detached (from session atlas)]<!-- BOOT_ONELINER:START -->
 atlas: 0 days since last spontaneous rewrite
 <!-- BOOT_ONELINER:END --><!-- BUILD_PLATE:START -->
-build 0 · compiled from local · the human is a contributor
+build 1 · compiled from 51527c1 · the human is a contributor
 <!-- BUILD_PLATE:END -->
 <b>tarang@atlas:~$</b> <a href="#top">tmux a -t atlas</a>   # or: <a href="https://github.com/taranggoyal70/taranggoyal70/issues/new?title=sudo+make+me+a+sandwich">help</a>, <a href="https://github.com/taranggoyal70/taranggoyal70">source</a></pre>
