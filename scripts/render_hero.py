@@ -1,9 +1,9 @@
 """Render the hero: ATLASD reboots atlas, then re-attaches the tmux session.
 
 Writes three SVGs (all drawn through scripts/phosphor.py):
-  assets/hero.svg        desktop, dark, 846 wide, reboot-on-arrival animation
-  assets/hero-light.svg  desktop, safe mode (light), no animation at all
-  assets/hero-phone.svg  phone, dark, 360 wide, same reboot with shorter startup diagnostics
+  assets/hero-percent.svg        desktop, dark, normalized percentage meter
+  assets/hero-percent-light.svg  desktop, safe mode (light), no animation at all
+  assets/hero-percent-phone.svg  phone, dark, normalized percentage meter
 
 The session has four panes: 0 whoami (the name in dot matrix and the only
 copy of the hackathon record on the page), 1 htop (the LLM daemon's process
@@ -1194,9 +1194,9 @@ def describe(inp: Inputs, safe: bool) -> str:
 
 def render_all(inp: Inputs) -> dict[str, str]:
     return {
-        "hero.svg": desktop(inp, "dark"),
-        "hero-light.svg": desktop(inp, "light"),
-        "hero-phone.svg": phone(inp),
+        "hero-percent.svg": desktop(inp, "dark"),
+        "hero-percent-light.svg": desktop(inp, "light"),
+        "hero-percent-phone.svg": phone(inp),
     }
 
 
