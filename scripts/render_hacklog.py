@@ -10,8 +10,7 @@ and the HACKLOG marker block in README.md becomes a centered 2x2 grid of
 those panes, each linked to its repo.
 
 var/lib/ships.json (hand-maintained) maps NAME -> {"repo": "owner/name",
-"payload": one line, "lang": str, "stars": int, "forks": int}. Stars, forks
-and language are refreshed live from the GitHub REST API (GITHUB_TOKEN
+"payload": one line, "lang": str}. Language is refreshed live from the GitHub REST API (GITHUB_TOKEN
 optional); on any failure the ships.json values are used. This script never
 writes ships.json. A log entry with no ships.json record still renders, just
 without a link or stats. A missing or unparseable ships.json is a failed
@@ -104,8 +103,6 @@ class Ship:
     repo: str = ""
     payload: str = ""
     lang: str = ""
-    stars: int | None = None
-    forks: int | None = None
     live: bool = False
 
 
@@ -127,14 +124,6 @@ def split_award(rest: str) -> tuple[str, str]:
         if len(parts) == 2:
             return parts[0], parts[1]
     return rest, ""
-
-
-def to_count(value: object) -> int | None:
-    try:
-        number = int(value)  # type: ignore[arg-type]
-    except (TypeError, ValueError):
-        return None
-    return number if 0 <= number < 10_000_000 else None
 
 
 def parse_log(lines: list[str]) -> list[Ship]:
@@ -194,12 +183,10 @@ def attach_records(ships: list[Ship], records: dict[str, dict]) -> None:
         ship.repo = repo if REPO_RE.match(repo) else ""
         ship.payload = clean(record.get("payload"), 120)
         ship.lang = clean(record.get("lang"), 24)
-        ship.stars = to_count(record.get("stars"))
-        ship.forks = to_count(record.get("forks"))
 
 
 def fetch_live(ships: list[Ship], token: str) -> None:
-    """Refresh stars/forks/language per repo. Each failure falls back quietly
+    """Refresh language per repo. Each failure falls back quietly
     to the ships.json values for that repo only."""
     headers = {"Accept": "application/vnd.github+json", "User-Agent": "atlas-hacklog",
                "X-GitHub-Api-Version": "2022-11-28"}
@@ -218,11 +205,7 @@ def fetch_live(ships: list[Ship], token: str) -> None:
         if not isinstance(data, dict):
             print(f"WARNING: {ship.repo}: unexpected API answer; using ships.json")
             continue
-        stars, forks = to_count(data.get("stargazers_count")), to_count(data.get("forks_count"))
-        if stars is None or forks is None:
-            print(f"WARNING: {ship.repo}: API answer had no counts; using ships.json")
-            continue
-        ship.stars, ship.forks, ship.live = stars, forks, True
+        ship.live = True
         lang = clean(data.get("language"), 24)
         if lang:
             ship.lang = lang
@@ -238,14 +221,6 @@ def fit(text: str, chars: int) -> str:
     if chars < 4:
         return text[:max(chars, 0)]
     return text[:chars - 3].rstrip() + "..."
-
-
-def stats_line(ship: Ship) -> str:
-    if not ship.repo:
-        return "no remote"
-    if ship.stars is None or ship.forks is None:
-        return ""
-    return f"{ph.plural(ship.stars, 'star')}  {ph.plural(ship.forks, 'fork')}"
 
 
 def award_label(ship: Ship) -> str:
@@ -356,9 +331,8 @@ def pane_label(ship: Ship, index: int, active: bool) -> str:
     bits.append(f"{verdict(ship)}: {ship.award or 'logged'} at {ship.event}, {ship.year}.")
     if ship.payload:
         bits.append(ship.payload.rstrip(".") + ".")
-    facts = [x for x in (ship.lang, stats_line(ship).replace("  ", ", ")) if x]
-    if facts:
-        bits.append(", ".join(facts) + ".")
+    if ship.lang:
+        bits.append(ship.lang + ".")
     bits.append(f"% cd ~/Developer/{ship.slug}")
     return " ".join(bits)
 
@@ -367,7 +341,7 @@ def pane_svg(ship: Ship, index: int, active: bool, mode: str, phone: bool = Fals
              payload_lines: int = 1, flaky: bool = False) -> str:
     """One tmux pane. Desktop panes are PANE_W wide with half a gutter baked
     into each side; phone panes are ph.WP wide, use the phone type scale and
-    move the repo stats onto their own row. Height grows only with payload_lines, which the caller keeps
+    keep the same compact information hierarchy. Height grows only with payload_lines, which the caller keeps
     equal across a set so rows stay aligned."""
     size, chrome, lh = PHONE_TYPE if phone else DESK_TYPE
     cw = ph.CW * size
@@ -377,13 +351,9 @@ def pane_svg(ship: Ship, index: int, active: bool, mode: str, phone: bool = Fals
         width, px0, pw = PANE_W, GUTTER / 2, PANE_W - GUTTER
     tx, rx = px0 + PAD, px0 + pw - PAD
     cols = int((rx - tx) // cw)
-    stats = stats_line(ship)
-
     # key/value rows under the payload; labels are padded to one column
     rows: list[tuple[str, list[tuple[str, str]]]] = [("event", [(ship.event, "fg")])]
     rows.append(("year", [(ship.year, "fg")] + ([("  ", ""), (ship.lang, "mu")] if ship.lang else [])))
-    if phone and stats:
-        rows.append(("repo", [(stats, "mu" if ship.repo else "warn")]))
 
     # vertical rhythm: title line, LED module, payload, rows, prompt
     y_pay = DOT_TOP + 7 * DOT_PX + 23
@@ -427,25 +397,15 @@ def pane_svg(ship: Ship, index: int, active: bool, mode: str, phone: bool = Fals
                 break
         body.append(ph.runs(tx, y_rows + k * lh, [(label, "mu"), (" " * (7 - len(label)), "")] + parts, size))
 
-    # bottom row: the prompt, the cursor (active pane only), repo stats (desktop).
-    # The path gets what "% " and " <cursor> " leave next to the stats.
-    def path_room(stats_text: str) -> int:
-        return cols - 2 - (len(stats_text) + 3 if stats_text else 2)
-
+    # bottom row: the prompt, project path, and cursor (active pane only).
     path = f"cd ~/Developer/{ship.slug}"
-    right = "" if phone else stats
-    if right and len(path) > path_room(right) and ship.stars is not None:
-        right = ph.plural(ship.stars, "star")  # long slug: drop forks before clipping the path
-    path = fit(path, path_room(right))
+    path = fit(path, cols - 4)
     body.append(ph.runs(tx, y_prompt, [("%", "acc!"), (" ", ""), (path, "fg")], size))
     if active:
         blink = " blink" if mode == "dark" else ""  # safe mode never animates
         cap = round(size * 0.85)
         body.append(f'<rect x="{ph.fmt(tx + (len(path) + 3) * cw)}" y="{ph.fmt(y_prompt - cap)}" '
                     f'width="{ph.fmt(cw)}" height="{ph.fmt(size + 1)}" class="acc{blink}"/>')
-    if right:
-        body.append(ph.text(rx, y_prompt, right, "mu" if ship.repo else "warn", size, anchor="end"))
-
     return ph.svg(width, height, "".join(body), pane_label(ship, index, active), mode,
                   extra_css=FLICKER_CSS if flaky else "", defs=defs)
 
@@ -541,8 +501,8 @@ def main() -> None:
 
     for ship in ships:
         source = "live" if ship.live else ("ships.json" if ship.repo else "no record")
-        print(f"{ship.year}  {ship.tag:<4}  {ship.name:<14} {ship.repo or '-':<28} "
-              f"{ship.lang or '-':<16} {stats_line(ship) or '-':<18} [{source}]")
+        print(f"{ship.year}  {ship.tag:<4}  {ship.name:<16} {ship.repo or '-':<44} "
+              f"{ship.lang or '-':<16} [{source}]")
     if args.dry_run:
         for name, svg_text in files.items():
             print(f"would write {out_dir / name} ({len(svg_text.encode('utf-8'))} bytes)")
