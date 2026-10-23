@@ -1,0 +1,21 @@
+{
+  "obsession": "agent trust systems",
+  "motd": "all evidence attached. the agent may now proceed.",
+  "processes": [
+    {
+      "command": "locus",
+      "flags": "--slice --evidence",
+      "cpu": 97
+    },
+    {
+      "command": "beebizy-b2b",
+      "flags": "--review",
+      "cpu": 62
+    },
+    {
+      "command": "beebizy-www",
+      "flags": "--measure",
+      "cpu": 49
+    }
+  ]
+}

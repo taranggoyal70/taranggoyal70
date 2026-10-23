@@ -1,0 +1,49 @@
+name: Reroll boot
+
+on:
+  schedule:
+    - cron: "41 14 * * 6"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-readme-writes
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Stdlib only: the boot screen is hand-drawn SVG now, no gifos or ffmpeg.
+      - name: Redraw the boot screen (boot program of the week)
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: python scripts/render_hero.py
+
+      - name: Regenerate ANSI business card
+        run: python scripts/generate_ansi_card.py
+
+      - name: Rebase generated changes on latest main
+        run: git pull --rebase --autostash origin main
+
+      - name: Commit boot assets
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "boot: re-rendered POST sequence, refreshed peripherals"
+          file_pattern: "assets/hero*.svg tarang.ansi"
