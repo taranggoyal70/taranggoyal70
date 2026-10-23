@@ -1,14 +1,14 @@
 # .plan — tarang@atlas
 # public notes from the product workstation
 
-2026-07-12  shipped Locus as a real control and evidence layer for coding
+2026  shipped Locus as a real control and evidence layer for coding
             agents. the benchmark reports what it measures and refuses to
             pretend localization recall equals autonomous task success.
 
-2026-09-05  built Tickmark around one idea: a human correction should become
+2026  built Tickmark around one idea: a human correction should become
             a tested rule, not another permanent paragraph in a prompt.
 
-2026-10-23  rebuilt the profile as a live tmux machine. visitors can inspect
+2026  rebuilt the profile as a live tmux machine. visitors can inspect
             the work, open the products, and break the disk by filing issues.
             this is more entertaining than another grid of badges.
 

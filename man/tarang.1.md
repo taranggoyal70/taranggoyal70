@@ -52,5 +52,5 @@ Several maintainers consider this the feature.
 [README](../README.md) this page escaped from.
 
 ```text
-ATLASD OS 8.0                  2026-10-23                TARANG(1)
+ATLASD OS 8.0                     2026                   TARANG(1)
 ```

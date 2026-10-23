@@ -2,7 +2,7 @@
 
 Source of truth is var/log/hackathons.log (Tarang appends one line per event):
 
-    YYYY-MM-DD  EVENT  [TAG]  NAME — AWARD
+    YYYY  EVENT  [TAG]  NAME — AWARD
 
 The newest four entries (by date) each become one pane SVG in assets/ships/
 (<slug>.svg dark, <slug>-light.svg safe mode, <slug>-phone.svg for phones),
@@ -38,7 +38,6 @@ import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
-from datetime import date
 from pathlib import Path
 
 import phosphor as ph
@@ -82,7 +81,7 @@ FLICKER_CSS = (".flk{animation:phflk 6.7s steps(1) infinite 2.3s}"
 # where the event ends), and the canonical em dash beats looser separators, so
 # "Tic - Tac - Toe \u2014 Grand Prize" keeps its name intact.
 LOG_LINE = re.compile(
-    r"^(?P<date>\d{4}-\d{2}-\d{2})\s+(?P<event>.+?)\s+\[(?P<tag>[A-Za-z0-9+-]{1,12})\]\s+(?P<rest>.+)$"
+    r"^(?P<year>\d{4})\s+(?P<event>.+?)\s+\[(?P<tag>[A-Za-z0-9+-]{1,12})\]\s+(?P<rest>.+)$"
 )
 AWARD_SEPS = ("\u2014", "\u2013", "--", "-")
 REPO_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})/(?!\.\.?$)[A-Za-z0-9._-]{1,100}$")
@@ -95,7 +94,7 @@ CONTROL = re.compile(r"[\x00-\x1f\x7f-\x9f\u200b-\u200f\u2028-\u202e\u2066-\u206
 
 @dataclass
 class Ship:
-    date: str
+    year: str
     event: str
     tag: str
     name: str
@@ -148,20 +147,19 @@ def parse_log(lines: list[str]) -> list[Ship]:
         if not match:
             print(f"WARNING: hackathons.log line {order + 1} not understood, skipped: {clean(line, 60)!r}")
             continue
-        try:
-            date.fromisoformat(match["date"])
-        except ValueError:
-            print(f"WARNING: hackathons.log line {order + 1} has a bad date, skipped")
+        year = int(match["year"])
+        if not 2010 <= year <= 2100:
+            print(f"WARNING: hackathons.log line {order + 1} has a bad year, skipped")
             continue
         name, award = split_award(match["rest"])
-        ships.append(Ship(date=match["date"], event=clean(match["event"], 80), tag=clean(match["tag"], 12).upper(),
+        ships.append(Ship(year=match["year"], event=clean(match["event"], 80), tag=clean(match["tag"], 12).upper(),
                           name=clean(name, 60), award=clean(award, 80), order=order))
     return [s for s in ships if s.name]
 
 
 def newest(ships: list[Ship], count: int = SHOW) -> list[Ship]:
-    """Newest first. Same-day entries: the line appended later wins."""
-    return sorted(ships, key=lambda s: (s.date, s.order), reverse=True)[:count]
+    """Newest first. Same-year entries: the line appended later wins."""
+    return sorted(ships, key=lambda s: (s.year, s.order), reverse=True)[:count]
 
 
 def slugify(name: str, taken: set[str]) -> str:
@@ -355,7 +353,7 @@ def payload_lines_needed(ships: list[Ship], width: float, size: float) -> int:
 
 def pane_label(ship: Ship, index: int, active: bool) -> str:
     bits = [f"tmux pane {index}{' (active)' if active else ''}: {ship.name}."]
-    bits.append(f"{verdict(ship)}: {ship.award or 'logged'} at {ship.event}, {ship.date}.")
+    bits.append(f"{verdict(ship)}: {ship.award or 'logged'} at {ship.event}, {ship.year}.")
     if ship.payload:
         bits.append(ship.payload.rstrip(".") + ".")
     facts = [x for x in (ship.lang, stats_line(ship).replace("  ", ", ")) if x]
@@ -383,7 +381,7 @@ def pane_svg(ship: Ship, index: int, active: bool, mode: str, phone: bool = Fals
 
     # key/value rows under the payload; labels are padded to one column
     rows: list[tuple[str, list[tuple[str, str]]]] = [("event", [(ship.event, "fg")])]
-    rows.append(("date", [(ship.date, "fg")] + ([("  ", ""), (ship.lang, "mu")] if ship.lang else [])))
+    rows.append(("year", [(ship.year, "fg")] + ([("  ", ""), (ship.lang, "mu")] if ship.lang else [])))
     if phone and stats:
         rows.append(("repo", [(stats, "mu" if ship.repo else "warn")]))
 
@@ -434,12 +432,12 @@ def pane_svg(ship: Ship, index: int, active: bool, mode: str, phone: bool = Fals
     def path_room(stats_text: str) -> int:
         return cols - 2 - (len(stats_text) + 3 if stats_text else 2)
 
-    path = f"cd ~/ships/{ship.slug}"
+    path = f"cd ~/Developer/{ship.slug}"
     right = "" if phone else stats
     if right and len(path) > path_room(right) and ship.stars is not None:
         right = ph.plural(ship.stars, "star")  # long slug: drop forks before clipping the path
     path = fit(path, path_room(right))
-    body.append(ph.runs(tx, y_prompt, [("$", "acc!"), (" ", ""), (path, "fg")], size))
+    body.append(ph.runs(tx, y_prompt, [("%", "acc!"), (" ", ""), (path, "fg")], size))
     if active:
         blink = " blink" if mode == "dark" else ""  # safe mode never animates
         cap = round(size * 0.85)
@@ -457,7 +455,7 @@ def pane_svg(ship: Ship, index: int, active: bool, mode: str, phone: bool = Fals
 
 def alt_text(ship: Ship) -> str:
     award = ship.award or verdict(ship)
-    text = f"{ship.name}: {award} at {ship.event}, {ship.date}."
+    text = f"{ship.name}: {award} at {ship.event}, {ship.year}."
     if ship.payload:
         text += " " + ship.payload.rstrip(".") + "."
     return text
@@ -543,7 +541,7 @@ def main() -> None:
 
     for ship in ships:
         source = "live" if ship.live else ("ships.json" if ship.repo else "no record")
-        print(f"{ship.date}  {ship.tag:<4}  {ship.name:<14} {ship.repo or '-':<28} "
+        print(f"{ship.year}  {ship.tag:<4}  {ship.name:<14} {ship.repo or '-':<28} "
               f"{ship.lang or '-':<16} {stats_line(ship) or '-':<18} [{source}]")
     if args.dry_run:
         for name, svg_text in files.items():
