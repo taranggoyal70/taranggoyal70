@@ -47,7 +47,7 @@ PROMPT = f"tarang@{HOST}:~$ "
 
 # The lifetime hackathon record (the hero meter, tarang.ansi). The log in
 # var/log/hackathons.log holds only the greatest hits.
-WON, ENTERED = 8, 8
+WON, ENTERED = 8, 13
 
 WINDOWS = ("boot", "ships", "fsck", "etc")
 

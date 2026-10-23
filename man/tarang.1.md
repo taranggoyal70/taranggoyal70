@@ -30,7 +30,7 @@ Invoked without arguments, **tarang** defaults to `--build-end-to-end`.
 : Replaces assumptions with uncomfortable notes from real people.
 
 **--hackathon**
-: Competitive mode. Eight verified wins.
+: Competitive mode. Eight wins across thirteen entries.
 
 **--sleep**
 : Recognized for POSIX compliance. Still optional.

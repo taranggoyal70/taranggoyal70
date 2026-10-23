@@ -63,11 +63,11 @@ FSCK_STATS = Path("data/fsck/stats.json")
 FSCK_STATE = Path("data/fsck/state.json")
 OUT_DIR = Path("assets")
 
-ACCOUNT_CREATED = datetime(2014, 9, 5, tzinfo=timezone.utc)
+ACCOUNT_CREATED = datetime(2015, 9, 6, tzinfo=timezone.utc)
 WON, ENTERED = ph.WON, ph.ENTERED
 TAGLINE = "AI product engineer · agent systems · ships end-to-end"
 STACK = "ts python next postgres agents"
-MEMORY_MB = 98304  # 2x48GB Dominator Platinum: the POST fallback without a token
+SYSTEM_CHECKS = 100  # deterministic fallback when contribution totals are unavailable
 
 BOOT_PROGRAMS = ("standard", "memtest+", "scramble")
 PROGRAMS = BOOT_PROGRAMS + ("kernel_panic",)
@@ -624,25 +624,25 @@ def post_script(inp: Inputs, phone: bool) -> Post:
         add([("(C) 2021-2026, Tarang Goyal Labs", "acc")])
         add([(f"{ph.MACHINE}  build ", "acc"), (inp.stamp, "fg")], 0.1)
         add([])
-        add([("CPU  ", "acc"), ("AMD Ryzen 7 9800X3D", "fg")])
-        add([("GPU  ", "acc"), ("ROG Astral RTX 5080 White", "fg")])
-        label = "Mem  "
+        add([("CPU  ", "acc"), ("Apple Silicon", "fg")])
+        add([("GPU  ", "acc"), ("Integrated Apple GPU", "fg")])
+        label = "Checks "
     else:
         add([("ATLASD Product BIOS v8.0", "acc!"), (", evidence before confidence", "acc")])
         add([("Copyright (C) 2021-2026, Tarang Goyal Labs", "acc")])
         add([(f"{ph.MACHINE}   build ", "acc"), (inp.stamp, "fg")], 0.1)
         add([])
-        add([("Main Processor : ", "acc"), ("AMD Ryzen 7 9800X3D", "fg")])
-        add([("Graphics       : ", "acc"), ("ASUS ROG Astral RTX 5080 White", "fg")])
-        label = "Memory Test    : "
+        add([("Main Processor : ", "acc"), ("Apple Silicon", "fg")])
+        add([("Graphics       : ", "acc"), ("Integrated Apple GPU", "fg")])
+        label = "System Checks  : "
     count = (len(rows), t, t + 0.42, label)
     rows.append((t, [(label, "acc")]))
     t += 0.5
     if memtest:
         if phone:
-            add([("/dev/hackathons: ", "acc"), (f"{WON} verified wins", "fg")], 0.12)
+            add([("/dev/hackathons: ", "acc"), (f"{WON} wins from {ENTERED} entries", "fg")], 0.12)
         else:
-            add([("/dev/hackathons: ", "acc"), (f"{WON} verified wins loaded", "fg")], 0.12)
+            add([("/dev/hackathons: ", "acc"), (f"{ENTERED} entries scanned, {WON} flagged TROPHY", "fg")], 0.12)
     add([])
     lead = 30 if phone else 36
     if not phone:
@@ -721,8 +721,8 @@ def post_layer(inp: Inputs, width: float, height: float, x0: float, y0: float, l
     if script.count:
         row, t0, t1, label = script.count
         y = y0 + row * lh
-        total = inp.contributions or MEMORY_MB
-        unit = " contributions" if inp.contributions else " MB"
+        total = inp.contributions or SYSTEM_CHECKS
+        unit = " contributions" if inp.contributions else " checks"
         vx = x0 + len(label) * cw
         steps = 12
         for k in range(steps):
@@ -981,7 +981,7 @@ def desktop(inp: Inputs, mode: str) -> str:
         defs.append(tube_defs(W, H))
 
     s: list[str] = []
-    bar = ph.status_bar(0, W, right="" if inp.panic else "load: 3 concurrent demos")
+    bar = ph.status_bar(0, W, right="" if inp.panic else "load: 3 concurrent products")
     if inp.panic:  # a panic boot: the status line admits it, in amber
         bar += ph.text(W - 10, 14 + ph.SIZE_CHROME * 0.35, '"kernel panic on last boot"', "warn", ph.SIZE_CHROME,
                        anchor="end", bold=True)
@@ -1001,7 +1001,8 @@ def desktop(inp: Inputs, mode: str) -> str:
     p0.append(ph.text(x0, PY + 128, TAGLINE, "fg", size))
     meter_w = ENTERED * 5 + (ENTERED - 1) * 2
     p0.append(ph.text(x0, PY + 160, "/dev/hackathons", "mu", size))
-    p0.append(right_runs(XS - 16, PY + 160, [(f"{WON} wins", "acc!"), (" · verified", "fg")], size))
+    p0.append(right_runs(XS - 16, PY + 160, [(f"{WON} won", "acc!"), (f" / {ENTERED} entered · ", "fg"),
+                                                  (f"{round(100 * WON / ENTERED)}%", "fg")], size))
     p0.append(hackathon_meter(x0, PY + 169, 5, 2, 11, 0, motion, attach))
     pane_chars = int((XS - 16 - x0) // cw)
     rows, illum, waxing, mtext = about_rows(inp, pane_chars)
@@ -1097,7 +1098,8 @@ def phone(inp: Inputs) -> str:
     cell, gap = 9, 2.5
     meter_w = 29 * cell + 28 * gap
     p0.append(ph.text(x0, y, "/dev/hackathons", "mu", size))
-    p0.append(right_runs(WP - x0, y, [(f"{WON} wins", "acc!"), (" · verified", "fg")], size))
+    p0.append(right_runs(WP - x0, y, [(f"{WON} won", "acc!"), (f" / {ENTERED} · ", "fg"),
+                                           (f"{round(100 * WON / ENTERED)}%", "fg")], size))
     p0.append(hackathon_meter(x0, y + 8, cell, gap, 9, 29, motion, attach))
     y += 8 + 2 * 9 + 3 + 22
     rows, illum, waxing, mtext = about_rows(inp, width_chars)
@@ -1176,7 +1178,7 @@ def describe(inp: Inputs, safe: bool) -> str:
     return (
         f"tmux session on {ph.HOST}, the machine that renders Tarang Goyal's GitHub profile. {boot} "
         f"Pane whoami: TARANG GOYAL in a dot-matrix font. {TAGLINE.replace(' · ', ', ')}. "
-        f"/dev/hackathons: {WON} verified wins. "
+        f"/dev/hackathons: {WON} wins from {ENTERED} entries ({round(100 * WON / ENTERED)}%). "
         f"Now: {inp.obsession}. Uptime {uptime(inp.now)}. Moon: {moon}. "
         "Stack: TypeScript, Python, React, FastAPI, Postgres. "
         f"Pane htop: {procs}. Load average: 3 concurrent products. Sleep: not installed. "

@@ -154,7 +154,7 @@ def build_card(status: str) -> str:
     content += [
         "",
         paint("AI product engineer", INK) + dot + paint("agent systems", INK) + dot
-        + paint(f"{WON} wins", PHOSPHOR, bold=True),
+        + paint(f"{WON}/{ENTERED} wins", PHOSPHOR, bold=True),
         "",
         field("site", "locus-five-iota.vercel.app", LINK),
         field("github", "github.com/taranggoyal70", LINK),
@@ -162,7 +162,7 @@ def build_card(status: str) -> str:
         "",
         field("status", status, PHOSPHOR, bold=True),
         "",
-        paint("works on my machine; my machine has 96GB of RAM", FAINT),
+        paint("works on my machine; my machine is a Mac", FAINT),
         "",
     ]
     lines = boxed(content)
