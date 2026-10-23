@@ -834,18 +834,19 @@ def name_block(words: list[tuple[str, float, float]], px: float, motion: Motion,
     return "".join(out), defs
 
 
-def hackathon_meter(x: float, y: float, cell: float, gap: float, height: float, per_row: int,
+def hackathon_meter(x: float, y: float, cell: float, gap: float, height: float, segments: int,
                     motion: Motion, attach: float) -> str:
-    """/dev/hackathons: one cell per event entered, lit if won. Fills up on attach."""
-    per_row = per_row or ENTERED
-    cells = [(x + (i % per_row) * (cell + gap), y + (i // per_row) * (height + 3)) for i in range(ENTERED)]
-    off = "".join(ph.cell_d(cx, cy, cell, height) for cx, cy in cells[WON:])
+    """A normalized win-rate track. The label carries the exact 8/13 count;
+    the fixed segment count keeps the visual width stable as the record grows."""
+    lit = round(segments * WON / ENTERED)
+    cells = [(x + i * (cell + gap), y) for i in range(segments)]
+    off = "".join(ph.cell_d(cx, cy, cell, height) for cx, cy in cells[lit:])
     out = [f'<path class="tr" d="{off}"/>', '<g class="acc glow">']
     if motion.on:
         out += [f'<path d="{ph.cell_d(cx, cy, cell, height)}"{motion.dark_until(attach + 0.16 + i * 0.009)}/>'
-                for i, (cx, cy) in enumerate(cells[:WON])]
+                for i, (cx, cy) in enumerate(cells[:lit])]
     else:
-        out.append(f'<path d="{"".join(ph.cell_d(cx, cy, cell, height) for cx, cy in cells[:WON])}"/>')
+        out.append(f'<path d="{"".join(ph.cell_d(cx, cy, cell, height) for cx, cy in cells[:lit])}"/>')
     out.append("</g>")
     return "".join(out)
 
@@ -999,11 +1000,10 @@ def desktop(inp: Inputs, mode: str) -> str:
     defs.append(sdefs)
     p0.append(name_svg)
     p0.append(ph.text(x0, PY + 128, TAGLINE, "fg", size))
-    meter_w = ENTERED * 5 + (ENTERED - 1) * 2
     p0.append(ph.text(x0, PY + 160, "/dev/hackathons", "mu", size))
     p0.append(right_runs(XS - 16, PY + 160, [(f"{WON} won", "acc!"), (f" / {ENTERED} entered · ", "fg"),
                                                   (f"{round(100 * WON / ENTERED)}%", "fg")], size))
-    p0.append(hackathon_meter(x0, PY + 169, 5, 2, 11, 0, motion, attach))
+    p0.append(hackathon_meter(x0, PY + 169, 5, 2, 11, 58, motion, attach))
     pane_chars = int((XS - 16 - x0) // cw)
     rows, illum, waxing, mtext = about_rows(inp, pane_chars)
     ry = PY + 206
@@ -1096,12 +1096,11 @@ def phone(inp: Inputs) -> str:
     p0.append(ph.text(x0, y + lh, "ships end-to-end", "fg", size))
     y += lh + 26
     cell, gap = 9, 2.5
-    meter_w = 29 * cell + 28 * gap
     p0.append(ph.text(x0, y, "/dev/hackathons", "mu", size))
     p0.append(right_runs(WP - x0, y, [(f"{WON} won", "acc!"), (f" / {ENTERED} · ", "fg"),
                                            (f"{round(100 * WON / ENTERED)}%", "fg")], size))
     p0.append(hackathon_meter(x0, y + 8, cell, gap, 9, 29, motion, attach))
-    y += 8 + 2 * 9 + 3 + 22
+    y += 8 + 9 + 22
     rows, illum, waxing, mtext = about_rows(inp, width_chars)
     for k, (key, value, cls) in enumerate(rows):
         row = ph.runs(x0, y + k * lh, [(f"{key:<8}", "mu"), (value, cls)], size)
