@@ -1,9 +1,9 @@
 """Render the hero: ATLASD reboots atlas, then re-attaches the tmux session.
 
 Writes three SVGs (all drawn through scripts/phosphor.py):
-  assets/hero-percent.svg        desktop, dark, normalized percentage meter
-  assets/hero-percent-light.svg  desktop, safe mode (light), no animation at all
-  assets/hero-percent-phone.svg  phone, dark, normalized percentage meter
+  assets/hero-percent-fit.svg        desktop, dark, normalized meter and fitted name
+  assets/hero-percent-fit-light.svg  desktop, safe mode (light), no animation
+  assets/hero-percent-fit-phone.svg  phone, dark, normalized percentage meter
 
 The session has four panes: 0 whoami (the name in dot matrix and the only
 copy of the hackathon record on the page), 1 htop (the LLM daemon's process
@@ -992,7 +992,9 @@ def desktop(inp: Inputs, mode: str) -> str:
     # --- 0 whoami ------------------------------------------------------------------------
     p0 = [ph.pane_title(0, XS, PY + 14, "0 whoami", f"tarang@{ph.HOST}"),
           ph.runs(x0, PY + 42, [("% ", "acc!"), ("whoami", "fg")], size)]
-    px = 7
+    # Six-pixel pitch keeps TARANG GOYAL plus its five-dot cursor inside the
+    # left pane. The reference name was shorter and could use a seven-pixel grid.
+    px = 6
     name_y = PY + 54
     zx = x0 + (6 * 6 - 1 + 3) * px            # TARANG, then a 3-dot thin space
     name_svg, sdefs = name_block([("TARANG", x0, name_y), ("GOYAL", zx, name_y)], px, motion, inp, attach,
@@ -1194,9 +1196,9 @@ def describe(inp: Inputs, safe: bool) -> str:
 
 def render_all(inp: Inputs) -> dict[str, str]:
     return {
-        "hero-percent.svg": desktop(inp, "dark"),
-        "hero-percent-light.svg": desktop(inp, "light"),
-        "hero-percent-phone.svg": phone(inp),
+        "hero-percent-fit.svg": desktop(inp, "dark"),
+        "hero-percent-fit-light.svg": desktop(inp, "light"),
+        "hero-percent-fit-phone.svg": phone(inp),
     }
 
 
