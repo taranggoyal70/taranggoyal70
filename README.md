@@ -1,6 +1,6 @@
 <a id="top"></a>
 
-<p align="center"><picture><source media="(max-width: 600px), (min-width: 768px) and (max-width: 900px)" srcset="assets/hero-phone.svg"><source media="(prefers-color-scheme: light)" srcset="assets/hero-light.svg"><img src="assets/hero.svg" width="100%" align="top" alt="Tarang OS boots into Tarang Goyal's AI product engineering workspace. Eight hackathon wins, 39 public repositories, one research paper, and products spanning agent safety, developer tools, finance, and applied AI."></picture></p>
+<p align="center"><picture><source media="(max-width: 600px), (min-width: 768px) and (max-width: 900px)" srcset="assets/hero-phone.svg"><source media="(prefers-color-scheme: light)" srcset="assets/hero-light.svg"><img src="assets/hero.svg" width="100%" align="top" alt="Tarang OS boots into Tarang Goyal's AI product engineering workspace. Eight hackathon wins, 48 repositories, one research paper, and products spanning agent safety, developer tools, finance, and applied AI."></picture></p>
 
 <p align="center"><a href="https://tarang-portfolio-pink.vercel.app"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/portfolio-light.svg"><img src="assets/keys/portfolio.svg" width="118" height="32" align="top" alt="F1 portfolio"></picture></a><a href="https://github.com/taranggoyal70?tab=repositories"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/github-light.svg"><img src="assets/keys/github.svg" width="118" height="32" align="top" alt="F2 GitHub repositories"></picture></a><a href="https://arxiv.org/abs/2605.21504"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/paper-light.svg"><img src="assets/keys/paper.svg" width="118" height="32" align="top" alt="F3 research paper"></picture></a><a href="https://linkedin.com/in/tarang-goyal"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/linkedin-light.svg"><img src="assets/keys/linkedin.svg" width="118" height="32" align="top" alt="F4 LinkedIn"></picture></a><a href="mailto:taranggoyal2000@gmail.com"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/email-light.svg"><img src="assets/keys/email.svg" width="118" height="32" align="top" alt="F5 email"></picture></a><a href="#ships"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/projects-light.svg"><img src="assets/keys/projects.svg" width="118" height="32" align="top" alt="F6 projects"></picture></a><a href="https://locus-five-iota.vercel.app"><picture><source media="(prefers-color-scheme: light)" srcset="assets/keys/locus-light.svg"><img src="assets/keys/locus.svg" width="118" height="32" align="top" alt="F7 Locus"></picture></a></p>
 
@@ -27,7 +27,7 @@ research    Chronos-2 financial forecasting · arXiv:2605.21504
 standard    talk to users · test the edges · ship the whole loop
 
 <b>tarang@atlas:~$ ls /srv/evidence</b>
-8_hackathon_wins/  39_public_repos/  1_published_paper/  production_products/
+8_hackathon_wins/  48_repositories/  1_published_paper/  production_products/
 
 <b>tarang@atlas:~$ crontab -l</b>
 @daily      talk-to-users
@@ -73,5 +73,5 @@ tmux          -         home
 
 <pre><b>tarang@atlas:~$ tmux detach</b>
 [detached (from session builder)]
-39 public repositories · 8 wins · 1 paper · still shipping
+48 repositories · 8 wins · 1 paper · still shipping
 <b>tarang@atlas:~$</b> <a href="#top">tmux a -t builder</a></pre>

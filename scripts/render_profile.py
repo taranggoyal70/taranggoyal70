@@ -149,7 +149,7 @@ def hero_desktop(p: dict[str, str], animated: bool) -> str:
         txt(34, 78, "0: operator", p["muted"], 11, 700), txt(34, 111, "$ whoami --verbose", p["cyan"], 14, 700),
         txt(34, 154, "TARANG GOYAL", p["text"], 32, 800),
         txt(34, 182, "AI product engineer · full-stack · agents · FDE", p["muted"], 13), rule(34, 202, 500, 202, p["line"]),
-        metric(34, 239, "8×", "wins", p, p["violet"]), metric(132, 239, "39", "public repos", p, p["cyan"]),
+        metric(34, 239, "8×", "wins", p, p["violet"]), metric(132, 239, "48", "repositories", p, p["cyan"]),
         metric(260, 239, "1", "paper", p, p["green"]), metric(350, 239, "0→1", "product scope", p, p["amber"]),
         txt(34, 302, "CURRENT MISSION", p["muted"], 10, 800),
         txt(34, 329, "Take ambiguous customer problems from zero to production.", p["text"], 12, 600),
@@ -176,7 +176,7 @@ def hero_phone(p: dict[str, str]) -> str:
     w, h = 360, 610
     s = [f'<g class="session">', chrome(w, p, "TARANG//OS", "tarang@atlas"), txt(18, 72, "$ whoami --verbose", p["cyan"], 12, 700),
          txt(18, 110, "TARANG GOYAL", p["text"], 27, 800), txt(18, 139, "AI product engineer · full-stack · agents", p["muted"], 11),
-         rule(18, 160, 342, 160, p["line"]), metric(18, 198, "8×", "wins", p, p["violet"]), metric(102, 198, "39", "repos", p, p["cyan"]),
+         rule(18, 160, 342, 160, p["line"]), metric(18, 198, "8×", "wins", p, p["violet"]), metric(102, 198, "48", "repos", p, p["cyan"]),
          metric(184, 198, "1", "paper", p, p["green"]), metric(258, 198, "0→1", "scope", p, p["amber"]),
          txt(18, 257, "$ build --problem-to-users", p["cyan"], 11, 700), flow_graph(44, 302, p, True),
          txt(18, 357, "BUILDER JOURNAL", p["muted"], 10, 800), txt(18, 388, "● AI products", p["muted"], 11),
