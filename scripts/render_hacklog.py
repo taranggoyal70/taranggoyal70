@@ -4,7 +4,7 @@ Source of truth is var/log/hackathons.log (Tarang appends one line per event):
 
     YYYY  EVENT  [TAG]  NAME — AWARD
 
-The newest five entries (by year and log order) each become one pane SVG in assets/ships/
+The newest eight entries (by year and log order) each become one pane SVG in assets/ships/
 (<slug>.svg dark, <slug>-light.svg safe mode, <slug>-phone.svg for phones),
 and the HACKLOG marker block in README.md becomes a centered 2x2 grid of
 those panes, each linked to its repo.
@@ -48,7 +48,7 @@ END = "<!-- HACKLOG:END -->"
 DEFAULT_LOG = "var/log/hackathons.log"
 DEFAULT_SHIPS = "var/lib/ships.json"
 DEFAULT_OUT = "assets/ships"
-SHOW = 5
+SHOW = 8
 API = "https://api.github.com/repos/"
 API_TIMEOUT = 10
 

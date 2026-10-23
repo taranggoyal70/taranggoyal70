@@ -13,6 +13,27 @@
     "stars": 0,
     "forks": 0
   },
+  "Crowd Symphony": {
+    "repo": "taranggoyal70/crowd-symphony",
+    "payload": "real-time audience music synchronized from hand gestures",
+    "lang": "TypeScript",
+    "stars": 0,
+    "forks": 0
+  },
+  "Nazava Analytics": {
+    "repo": "taranggoyal70/SCU-Analytical-Showdown-2025",
+    "payload": "forecasting, customer segmentation, campaign ROI, and recommendations",
+    "lang": "Jupyter Notebook",
+    "stars": 0,
+    "forks": 0
+  },
+  "Gatekit": {
+    "repo": "taranggoyal70/gatekit",
+    "payload": "policy gates, human approvals, and immutable audit records for agents",
+    "lang": "TypeScript",
+    "stars": 0,
+    "forks": 0
+  },
   "Morphic": {
     "repo": "taranggoyal70/Morphic",
     "payload": "adaptive software workspaces grounded in GitHub evidence",
