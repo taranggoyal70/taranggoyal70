@@ -1,0 +1,42 @@
+name: Profile checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: profile-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run profile contract tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Compile every generator
+        run: python -m py_compile scripts/*.py tests/*.py
+
+      - name: Exercise the interactive board engine
+        run: python scripts/atlasd_ops.py self-test
+
+      - name: Dry-run generated profile surfaces
+        run: |
+          python scripts/render_hero.py --dry-run --offline
+          python scripts/render_hacklog.py --dry-run --offline
