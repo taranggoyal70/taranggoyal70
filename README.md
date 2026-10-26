@@ -44,6 +44,7 @@
 <pre><b>tarang@atlas-mac ~ % crontab -l</b><!-- CRONTAB:START -->
 CRON_TZ=UTC
 @reboot        <a href=".github/workflows/atlasd-ops.yaml">atlasd-ops.yaml</a>       # visitor input: diskutil board
+@reboot        <a href=".github/workflows/profile-checks.yaml">profile-checks.yaml</a>   # undocumented daemon
 17 15 * * 1,4  <a href=".github/workflows/profile-summary.yaml">profile-summary.yaml</a>  # an LLM rewrites the boot screen
 41 14 * * 6    <a href=".github/workflows/terminal-hero.yaml">terminal-hero.yaml</a>    # startup check; panic odds 1:8
 
@@ -369,6 +370,6 @@ curl -sL https://raw.githubusercontent.com/taranggoyal70/taranggoyal70/main/tara
 [detached (from session atlas-mac)]<!-- BOOT_ONELINER:START -->
 atlas: 0 days since last spontaneous rewrite
 <!-- BOOT_ONELINER:END --><!-- BUILD_PLATE:START -->
-build 1 · compiled from 51527c1 · the human is a contributor
+build 2 · compiled from 6dc265b · the human is a contributor
 <!-- BUILD_PLATE:END -->
 <b>tarang@atlas-mac ~ %</b> <a href="#top">tmux attach -t atlas-mac</a>   # or: <a href="https://github.com/taranggoyal70/taranggoyal70/issues/new?title=sudo+make+me+a+sandwich">help</a>, <a href="https://github.com/taranggoyal70/taranggoyal70">source</a></pre>

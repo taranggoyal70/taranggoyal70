@@ -1,22 +1,27 @@
 {
-  "obsession": "agent trust evidence",
-  "motd": "the updates are endless. just like the pull requests.",
+  "obsession": "agent trust and evidence",
+  "motd": "the updates are flowing like a river of code.",
   "processes": [
     {
-      "command": "beebizy",
-      "flags": "--update --merge",
+      "command": "locus",
+      "flags": "--slice --evidence",
+      "cpu": 97
+    },
+    {
+      "command": "prox-challenge",
+      "flags": "--update --branch",
       "cpu": 95
     },
     {
-      "command": "agent-trust",
-      "flags": "--verify --evidence",
+      "command": "tarang-portfolio",
+      "flags": "--deploy --review",
       "cpu": 92
     },
     {
-      "command": "product-eng",
-      "flags": "--focus --real-users",
+      "command": "beebizy-b2b",
+      "flags": "--create --sync",
       "cpu": 90
     }
   ],
-  "updated": "2026-10-23T22:35:19Z"
+  "updated": "2026-10-26T20:30:25Z"
 }
