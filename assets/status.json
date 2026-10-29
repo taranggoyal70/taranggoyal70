@@ -1,6 +1,6 @@
 {
-  "obsession": "agent trust and evidence",
-  "motd": "the updates are flowing like a river of code.",
+  "obsession": "agent trust evidence",
+  "motd": "pull requests are the new normal. deal with it.",
   "processes": [
     {
       "command": "locus",
@@ -8,20 +8,15 @@
       "cpu": 97
     },
     {
-      "command": "prox-challenge",
-      "flags": "--update --branch",
+      "command": "beebizy-b2b",
+      "flags": "--merge --review",
       "cpu": 95
     },
     {
-      "command": "tarang-portfolio",
-      "flags": "--deploy --review",
-      "cpu": 92
-    },
-    {
-      "command": "beebizy-b2b",
-      "flags": "--create --sync",
+      "command": "prox-challenge",
+      "flags": "--update --branch",
       "cpu": 90
     }
   ],
-  "updated": "2026-10-26T20:30:25Z"
+  "updated": "2026-10-29T20:20:01Z"
 }
