@@ -1,22 +1,27 @@
 {
   "obsession": "agent trust evidence",
-  "motd": "pull requests are the new normal. deal with it.",
+  "motd": "the updates are flowing. no one is surprised.",
   "processes": [
     {
-      "command": "locus",
-      "flags": "--slice --evidence",
-      "cpu": 97
-    },
-    {
-      "command": "beebizy-b2b",
-      "flags": "--merge --review",
+      "command": "beebizy-www",
+      "flags": "--update --merge",
       "cpu": 95
     },
     {
       "command": "prox-challenge",
-      "flags": "--update --branch",
+      "flags": "--push --review",
       "cpu": 90
+    },
+    {
+      "command": "beebizy-b2b",
+      "flags": "--pr-open --pr-merge",
+      "cpu": 85
+    },
+    {
+      "command": "fbm-sniper",
+      "flags": "--star --explore",
+      "cpu": 70
     }
   ],
-  "updated": "2026-10-29T20:20:01Z"
+  "updated": "2026-11-02T23:07:30Z"
 }
