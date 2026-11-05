@@ -1,27 +1,27 @@
 {
-  "obsession": "agent trust evidence",
-  "motd": "the updates are flowing. no one is surprised.",
+  "obsession": "agent trust and evidence",
+  "motd": "the updates are flowing like coffee on a monday.",
   "processes": [
     {
-      "command": "beebizy-www",
-      "flags": "--update --merge",
+      "command": "beebizy-b2b",
+      "flags": "--merge --update",
       "cpu": 95
     },
     {
       "command": "prox-challenge",
-      "flags": "--push --review",
+      "flags": "--validate --submit",
       "cpu": 90
     },
     {
-      "command": "beebizy-b2b",
-      "flags": "--pr-open --pr-merge",
+      "command": "chatgeist",
+      "flags": "--debug --log",
       "cpu": 85
     },
     {
-      "command": "fbm-sniper",
-      "flags": "--star --explore",
-      "cpu": 70
+      "command": "skills",
+      "flags": "--review",
+      "cpu": 80
     }
   ],
-  "updated": "2026-11-02T23:07:30Z"
+  "updated": "2026-11-05T21:28:31Z"
 }
