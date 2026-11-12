@@ -1,13 +1,13 @@
-"""Render tmux window 1:ships: the four newest hackathon ships as tmux panes.
+"""Render tmux window 1:ships: every verified hackathon win as a tmux pane.
 
 Source of truth is var/log/hackathons.log (Tarang appends one line per event):
 
     YYYY  EVENT  [TAG]  NAME — AWARD
 
-The newest eight entries (by year and log order) each become one pane SVG in assets/ships/
+The newest nine winning entries (by year and log order) each become one pane SVG in assets/ships/
 (<slug>.svg dark, <slug>-light.svg safe mode, <slug>-phone.svg for phones),
-and the HACKLOG marker block in README.md becomes a centered 2x2 grid of
-those panes, each linked to its repo.
+and the HACKLOG marker block in README.md becomes a centered two-column grid
+of those panes, each linked to its repo. An odd final pane is centered.
 
 var/lib/ships.json (hand-maintained) maps NAME -> {"repo": "owner/name",
 "payload": one line, "lang": str}. Language is refreshed live from the GitHub REST API (GITHUB_TOKEN
@@ -47,7 +47,7 @@ END = "<!-- HACKLOG:END -->"
 DEFAULT_LOG = "var/log/hackathons.log"
 DEFAULT_SHIPS = "var/lib/ships.json"
 DEFAULT_OUT = "assets/ships"
-SHOW = 8
+SHOW = 9
 API = "https://api.github.com/repos/"
 API_TIMEOUT = 10
 
@@ -526,7 +526,7 @@ def main() -> None:
         return
     print("Updated HACKLOG block" if updated else "HACKLOG block already current")
 
-    # Panes for ships that scrolled out of the newest four are no longer
+    # Panes for ships that scrolled out of the newest nine are no longer
     # referenced. Only files this script drew are touched, so a stray
     # --out-dir can never take other SVGs with it.
     for stale in sorted(out_dir.glob("*.svg")):

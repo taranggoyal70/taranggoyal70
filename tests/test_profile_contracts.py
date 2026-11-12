@@ -55,18 +55,18 @@ class HeroContracts(unittest.TestCase):
 
 
 class WinLedgerContracts(unittest.TestCase):
-    def test_eight_newest_verified_wins_render(self) -> None:
+    def test_nine_verified_wins_render(self) -> None:
         lines = (ROOT / "var/log/hackathons.log").read_text(encoding="utf-8").splitlines()
-        ships = hacklog.newest(hacklog.parse_log(lines), count=8)
+        ships = hacklog.newest(hacklog.parse_log(lines), count=9)
         records = json.loads((ROOT / "var/lib/ships.json").read_text(encoding="utf-8"))
         hacklog.attach_records(ships, records)
 
-        self.assertEqual(len(ships), 8)
+        self.assertEqual(len(ships), 9)
         self.assertTrue(all(ship.tag == "WIN" for ship in ships))
         self.assertTrue(all(ship.repo for ship in ships))
 
         rendered = hacklog.render(ships)
-        self.assertEqual(len(rendered), 24)
+        self.assertEqual(len(rendered), 27)
         self.assertFalse(any(re.search(r"\b\d+ (?:stars?|forks?)\b", svg) for svg in rendered.values()))
 
 
