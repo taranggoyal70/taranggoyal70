@@ -54,5 +54,12 @@
     "lang": "TypeScript",
     "stars": 0,
     "forks": 0
+  },
+  "SecondVoice": {
+    "repo": "taranggoyal70/secondvoice",
+    "payload": "assistive speech you can compose, interrupt, revise, and control",
+    "lang": "TypeScript",
+    "stars": 0,
+    "forks": 0
   }
 }

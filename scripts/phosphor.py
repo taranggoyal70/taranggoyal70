@@ -48,7 +48,7 @@ PROMPT = f"tarang@{HOST} ~ % "
 
 # The lifetime hackathon record (the hero meter, tarang.ansi). The log in
 # var/log/hackathons.log holds only the greatest hits.
-WON, ENTERED = 8, 13
+WON, ENTERED = 9, 14
 
 WINDOWS = ("boot", "ships", "diskutil", "macos")
 
@@ -167,7 +167,8 @@ def write_svg(path: str | Path, content: str) -> bool:
     if target.exists() and target.read_bytes() == content.encode("utf-8"):
         return False
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(content, encoding="utf-8", newline="\n")
+    with target.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(content)
     return True
 
 

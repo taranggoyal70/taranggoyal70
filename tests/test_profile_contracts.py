@@ -41,7 +41,7 @@ class HeroContracts(unittest.TestCase):
 
         self.assertEqual(all_cells, 58)
         self.assertEqual(all_cells - unlit_cells, round(58 * ph.WON / ph.ENTERED))
-        self.assertEqual(round(100 * ph.WON / ph.ENTERED), 62)
+        self.assertEqual(round(100 * ph.WON / ph.ENTERED), 64)
 
     def test_desktop_name_and_cursor_stay_inside_left_pane(self) -> None:
         x0 = 16
@@ -55,7 +55,7 @@ class HeroContracts(unittest.TestCase):
 
 
 class WinLedgerContracts(unittest.TestCase):
-    def test_all_eight_verified_wins_render(self) -> None:
+    def test_eight_newest_verified_wins_render(self) -> None:
         lines = (ROOT / "var/log/hackathons.log").read_text(encoding="utf-8").splitlines()
         ships = hacklog.newest(hacklog.parse_log(lines), count=8)
         records = json.loads((ROOT / "var/lib/ships.json").read_text(encoding="utf-8"))
