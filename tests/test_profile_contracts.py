@@ -57,11 +57,25 @@ class HeroContracts(unittest.TestCase):
 class WinLedgerContracts(unittest.TestCase):
     def test_nine_verified_wins_render(self) -> None:
         lines = (ROOT / "var/log/hackathons.log").read_text(encoding="utf-8").splitlines()
-        ships = hacklog.newest(hacklog.parse_log(lines), count=9)
+        ships = hacklog.featured(hacklog.parse_log(lines), count=9)
         records = json.loads((ROOT / "var/lib/ships.json").read_text(encoding="utf-8"))
         hacklog.attach_records(ships, records)
 
         self.assertEqual(len(ships), 9)
+        self.assertEqual(
+            [ship.name for ship in ships],
+            [
+                "Locus",
+                "Studentlytics",
+                "Crowd Symphony",
+                "AI Firewall",
+                "SecondVoice",
+                "Morphic",
+                "Gatekit",
+                "Tickmark",
+                "Nazava Analytics",
+            ],
+        )
         self.assertTrue(all(ship.tag == "WIN" for ship in ships))
         self.assertTrue(all(ship.repo for ship in ships))
 

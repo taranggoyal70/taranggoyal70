@@ -4,7 +4,7 @@ Source of truth is var/log/hackathons.log (Tarang appends one line per event):
 
     YYYY  EVENT  [TAG]  NAME — AWARD
 
-The newest nine winning entries (by year and log order) each become one pane SVG in assets/ships/
+The nine winning entries appear in a curated credibility order and each become one pane SVG in assets/ships/
 (<slug>.svg dark, <slug>-light.svg safe mode, <slug>-phone.svg for phones),
 and the HACKLOG marker block in README.md becomes a centered two-column grid
 of those panes, each linked to its repo. An odd final pane is centered.
@@ -48,6 +48,17 @@ DEFAULT_LOG = "var/log/hackathons.log"
 DEFAULT_SHIPS = "var/lib/ships.json"
 DEFAULT_OUT = "assets/ships"
 SHOW = 9
+FEATURED_ORDER = (
+    "Locus",             # Stanford University AI Hackathon
+    "Studentlytics",     # AWS x INRIX
+    "Crowd Symphony",    # YC Stack Auth
+    "AI Firewall",       # A10 Networks
+    "SecondVoice",       # AssemblyAI
+    "Morphic",           # Beta Fund x GMI Cloud
+    "Gatekit",           # AgentRogue
+    "Tickmark",          # Syndicate by Maximor
+    "Nazava Analytics",  # SCU Analytical Showdown
+)
 API = "https://api.github.com/repos/"
 API_TIMEOUT = 10
 
@@ -146,9 +157,14 @@ def parse_log(lines: list[str]) -> list[Ship]:
     return [s for s in ships if s.name]
 
 
-def newest(ships: list[Ship], count: int = SHOW) -> list[Ship]:
-    """Newest first. Same-year entries: the line appended later wins."""
-    return sorted(ships, key=lambda s: (s.year, s.order), reverse=True)[:count]
+def featured(ships: list[Ship], count: int = SHOW) -> list[Ship]:
+    """Verified wins in the explicit credibility order used by the profile."""
+    rank = {name: index for index, name in enumerate(FEATURED_ORDER)}
+    wins = [ship for ship in ships if ship.tag == "WIN"]
+    return sorted(
+        wins,
+        key=lambda ship: (rank.get(ship.name, len(rank)), -int(ship.year), -ship.order),
+    )[:count]
 
 
 def slugify(name: str, taken: set[str]) -> str:
@@ -485,7 +501,7 @@ def main() -> None:
 
     out_dir, readme = Path(args.out_dir), Path(args.readme)
     try:
-        ships = newest(parse_log(Path(args.log).read_text(encoding="utf-8-sig").splitlines()))
+        ships = featured(parse_log(Path(args.log).read_text(encoding="utf-8-sig").splitlines()))
         if not ships:
             raise ValueError("hackathons.log has no entries")
         attach_records(ships, load_records(Path(args.ships)))
@@ -526,7 +542,7 @@ def main() -> None:
         return
     print("Updated HACKLOG block" if updated else "HACKLOG block already current")
 
-    # Panes for ships that scrolled out of the newest nine are no longer
+    # Panes removed from the featured nine are no longer
     # referenced. Only files this script drew are touched, so a stray
     # --out-dir can never take other SVGs with it.
     for stale in sorted(out_dir.glob("*.svg")):
