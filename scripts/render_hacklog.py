@@ -54,7 +54,7 @@ FEATURED_ORDER = (
     "Crowd Symphony",    # YC Stack Auth
     "AI Firewall",       # A10 Networks
     "SecondVoice",       # AssemblyAI
-    "BrightBlind",       # VexoHacks
+    "BrightBlind",       # YC Vexo Hacks (Google DeepMind Track)
     "Morphic",           # Beta Fund x GMI Cloud
     "Gatekit",           # AgentRogue
     "Tickmark",          # Syndicate by Maximor
