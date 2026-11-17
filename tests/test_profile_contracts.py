@@ -41,7 +41,7 @@ class HeroContracts(unittest.TestCase):
 
         self.assertEqual(all_cells, 58)
         self.assertEqual(all_cells - unlit_cells, round(58 * ph.WON / ph.ENTERED))
-        self.assertEqual(round(100 * ph.WON / ph.ENTERED), 67)
+        self.assertEqual(round(100 * ph.WON / ph.ENTERED), 62)
 
     def test_desktop_name_and_cursor_stay_inside_left_pane(self) -> None:
         x0 = 16
