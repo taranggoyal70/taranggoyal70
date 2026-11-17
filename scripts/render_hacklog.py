@@ -4,7 +4,7 @@ Source of truth is var/log/hackathons.log (Tarang appends one line per event):
 
     YYYY  EVENT  [TAG]  NAME — AWARD
 
-The nine winning entries appear in a curated credibility order and each become one pane SVG in assets/ships/
+The ten winning entries appear in a curated credibility order and each become one pane SVG in assets/ships/
 (<slug>.svg dark, <slug>-light.svg safe mode, <slug>-phone.svg for phones),
 and the HACKLOG marker block in README.md becomes a centered two-column grid
 of those panes, each linked to its repo. An odd final pane is centered.
@@ -47,13 +47,14 @@ END = "<!-- HACKLOG:END -->"
 DEFAULT_LOG = "var/log/hackathons.log"
 DEFAULT_SHIPS = "var/lib/ships.json"
 DEFAULT_OUT = "assets/ships"
-SHOW = 9
+SHOW = 10
 FEATURED_ORDER = (
     "Locus",             # Stanford University AI Hackathon
     "Studentlytics",     # AWS x INRIX
     "Crowd Symphony",    # YC Stack Auth
     "AI Firewall",       # A10 Networks
     "SecondVoice",       # AssemblyAI
+    "BrightBlind",       # VexoHacks
     "Morphic",           # Beta Fund x GMI Cloud
     "Gatekit",           # AgentRogue
     "Tickmark",          # Syndicate by Maximor
@@ -542,7 +543,7 @@ def main() -> None:
         return
     print("Updated HACKLOG block" if updated else "HACKLOG block already current")
 
-    # Panes removed from the featured nine are no longer
+    # Panes removed from the featured ten are no longer
     # referenced. Only files this script drew are touched, so a stray
     # --out-dir can never take other SVGs with it.
     for stale in sorted(out_dir.glob("*.svg")):

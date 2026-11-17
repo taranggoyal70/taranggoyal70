@@ -41,7 +41,7 @@ class HeroContracts(unittest.TestCase):
 
         self.assertEqual(all_cells, 58)
         self.assertEqual(all_cells - unlit_cells, round(58 * ph.WON / ph.ENTERED))
-        self.assertEqual(round(100 * ph.WON / ph.ENTERED), 64)
+        self.assertEqual(round(100 * ph.WON / ph.ENTERED), 67)
 
     def test_desktop_name_and_cursor_stay_inside_left_pane(self) -> None:
         x0 = 16
@@ -55,13 +55,13 @@ class HeroContracts(unittest.TestCase):
 
 
 class WinLedgerContracts(unittest.TestCase):
-    def test_nine_verified_wins_render(self) -> None:
+    def test_ten_verified_wins_render(self) -> None:
         lines = (ROOT / "var/log/hackathons.log").read_text(encoding="utf-8").splitlines()
-        ships = hacklog.featured(hacklog.parse_log(lines), count=9)
+        ships = hacklog.featured(hacklog.parse_log(lines), count=10)
         records = json.loads((ROOT / "var/lib/ships.json").read_text(encoding="utf-8"))
         hacklog.attach_records(ships, records)
 
-        self.assertEqual(len(ships), 9)
+        self.assertEqual(len(ships), 10)
         self.assertEqual(
             [ship.name for ship in ships],
             [
@@ -70,6 +70,7 @@ class WinLedgerContracts(unittest.TestCase):
                 "Crowd Symphony",
                 "AI Firewall",
                 "SecondVoice",
+                "BrightBlind",
                 "Morphic",
                 "Gatekit",
                 "Tickmark",
@@ -80,7 +81,7 @@ class WinLedgerContracts(unittest.TestCase):
         self.assertTrue(all(ship.repo for ship in ships))
 
         rendered = hacklog.render(ships)
-        self.assertEqual(len(rendered), 27)
+        self.assertEqual(len(rendered), 30)
         self.assertFalse(any(re.search(r"\b\d+ (?:stars?|forks?)\b", svg) for svg in rendered.values()))
 
 

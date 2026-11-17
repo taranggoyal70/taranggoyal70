@@ -61,5 +61,12 @@
     "lang": "TypeScript",
     "stars": 0,
     "forks": 0
+  },
+  "BrightBlind": {
+    "repo": "ismaelmehdid/BrightBlind",
+    "payload": "voice companion linking memory, vision, and transit for blind users",
+    "lang": "Python",
+    "stars": 0,
+    "forks": 0
   }
 }
