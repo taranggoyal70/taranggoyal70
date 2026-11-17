@@ -240,8 +240,14 @@ def fit(text: str, chars: int) -> str:
     return text[:chars - 3].rstrip() + "..."
 
 
-def award_label(ship: Ship) -> str:
-    return ship.award.lower() if ship.award else "logged"
+def award_label(ship: Ship, room: int = 80) -> str:
+    """The award as the pane border can show it in `room` columns. A long
+    "Track 2: Autonomous Office of the CFO" drops its detail after the colon
+    ("track 2") before it is ever cut mid-word; the alt text keeps it whole."""
+    label = ship.award.lower() if ship.award else "logged"
+    if len(label) > room and ":" in label:
+        label = label.split(":", 1)[0].rstrip()
+    return fit(label, room)
 
 
 def verdict(ship: Ship) -> str:
@@ -388,7 +394,7 @@ def pane_svg(ship: Ship, index: int, active: bool, mode: str, phone: bool = Fals
     title_cols = int((pw - 2 * TITLE_INSET - 24) // (ph.CW * chrome))
     left = fit(f"{index} {ship.name}", 24)
     tag = f"[{ship.tag}]"
-    award = fit(award_label(ship), max(title_cols - len(left) - len(tag) - 1 - 4, 3))
+    award = award_label(ship, max(title_cols - len(left) - len(tag) - 1 - 4, 3))
     tag_cls = ("acc" if ship.tag == "WIN" else "mu") + ("!" if active else "")
     body.append(border_title(px0 + TITLE_INSET, px0 + pw - TITLE_INSET, TITLE_Y, left,
                              [(tag, tag_cls), (" ", ""), (award, "")], active, chrome))

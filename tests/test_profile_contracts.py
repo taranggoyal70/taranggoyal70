@@ -80,6 +80,11 @@ class WinLedgerContracts(unittest.TestCase):
         self.assertTrue(all(ship.tag == "WIN" for ship in ships))
         self.assertTrue(all(ship.repo for ship in ships))
 
+        tickmark = next(ship for ship in ships if ship.name == "Tickmark")
+        self.assertEqual(hacklog.award_label(tickmark, 24), "track 2")
+        self.assertIn("Autonomous Office of the CFO", hacklog.alt_text(tickmark))
+        self.assertTrue(all("..." not in hacklog.award_label(ship, 24) for ship in ships))
+
         rendered = hacklog.render(ships)
         self.assertEqual(len(rendered), 30)
         self.assertFalse(any(re.search(r"\b\d+ (?:stars?|forks?)\b", svg) for svg in rendered.values()))
