@@ -65,12 +65,12 @@ class WinLedgerContracts(unittest.TestCase):
         self.assertEqual(
             [ship.name for ship in ships],
             [
+                "BrightBlind",
                 "Locus",
                 "Studentlytics",
                 "Crowd Symphony",
                 "AI Firewall",
                 "SecondVoice",
-                "BrightBlind",
                 "Morphic",
                 "Gatekit",
                 "Tickmark",

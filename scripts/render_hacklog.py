@@ -49,12 +49,12 @@ DEFAULT_SHIPS = "var/lib/ships.json"
 DEFAULT_OUT = "assets/ships"
 SHOW = 10
 FEATURED_ORDER = (
+    "BrightBlind",       # Vexo Hacks at Y Combinator (Google DeepMind Track)
     "Locus",             # Stanford University AI Hackathon
     "Studentlytics",     # AWS x INRIX
     "Crowd Symphony",    # YC Stack Auth
     "AI Firewall",       # A10 Networks
     "SecondVoice",       # AssemblyAI
-    "BrightBlind",       # YC Vexo Hacks (Google DeepMind Track)
     "Morphic",           # Beta Fund x GMI Cloud
     "Gatekit",           # AgentRogue
     "Tickmark",          # Syndicate by Maximor
