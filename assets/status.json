@@ -1,22 +1,27 @@
 {
-  "obsession": "agent trust engineering",
-  "motd": "the updates are relentless. keep pushing.",
+  "obsession": "agent trust evidence",
+  "motd": "the updates are relentless. just like my coffee intake.",
   "processes": [
     {
-      "command": "brightblind",
-      "flags": "--update --sync",
-      "cpu": 95
+      "command": "locus",
+      "flags": "--slice --evidence",
+      "cpu": 97
     },
     {
-      "command": "beebizy",
-      "flags": "--branch --deploy",
+      "command": "peek",
+      "flags": "--monitor --report",
       "cpu": 90
     },
     {
-      "command": "take",
-      "flags": "--review --feedback",
+      "command": "sidespin",
+      "flags": "--update --debug",
       "cpu": 85
+    },
+    {
+      "command": "beebizy",
+      "flags": "--merge --pull",
+      "cpu": 75
     }
   ],
-  "updated": "2026-11-16T23:44:49Z"
+  "updated": "2026-11-19T22:40:17Z"
 }
