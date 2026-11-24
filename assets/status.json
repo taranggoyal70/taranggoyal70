@@ -1,6 +1,6 @@
 {
   "obsession": "agent trust evidence",
-  "motd": "the updates are relentless. just like my coffee intake.",
+  "motd": "the pull requests are flowing like coffee in the morning.",
   "processes": [
     {
       "command": "locus",
@@ -8,20 +8,15 @@
       "cpu": 97
     },
     {
-      "command": "peek",
-      "flags": "--monitor --report",
-      "cpu": 90
-    },
-    {
-      "command": "sidespin",
-      "flags": "--update --debug",
+      "command": "tickmark",
+      "flags": "--review --update",
       "cpu": 85
     },
     {
       "command": "beebizy",
-      "flags": "--merge --pull",
+      "flags": "--sync --deploy",
       "cpu": 75
     }
   ],
-  "updated": "2026-11-19T22:40:17Z"
+  "updated": "2026-11-24T02:14:11Z"
 }
