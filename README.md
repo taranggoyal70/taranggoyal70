@@ -51,10 +51,10 @@ CRON_TZ=UTC
 
 <b>tarang@atlas-mac ~ % git log --oneline -4 --grep "^atlasd-build" |</b>
 <b>&gt; sed 's/atlasd-//; s/, kept the good parts//'</b>
+<a href="https://github.com/taranggoyal70/taranggoyal70/commit/60c4f7843c92866c3eb887a2e2967cd0cfd84d8e">60c4f78</a> build 10: rewrote own bio around agent trust evidence
 <a href="https://github.com/taranggoyal70/taranggoyal70/commit/4d445a60a3dad7e896ccf4387b930ba5b39e6769">4d445a6</a> build 9: rewrote own bio around agent trust evidence
 <a href="https://github.com/taranggoyal70/taranggoyal70/commit/ab583a23abf75907b2eafdbb3366a6e2f92a78ec">ab583a2</a> build 8: rewrote own bio around agent trust engineering
 <a href="https://github.com/taranggoyal70/taranggoyal70/commit/c4ea60b614263d9914091e02d0d1081dfab55355">c4ea60b</a> build 7: rewrote own bio around agent trust and evidence
-<a href="https://github.com/taranggoyal70/taranggoyal70/commit/216374772735ee5d53d9dad1616f646ba1d6cb1a">2163747</a> build 6: rewrote own bio around agent trust evidence
 <b>tarang@atlas-mac ~ % # nobody reviews these. quality has improved.</b>
 <!-- CRONTAB:END --></pre>
 
@@ -374,6 +374,6 @@ curl -sL https://raw.githubusercontent.com/taranggoyal70/taranggoyal70/main/tara
 [detached (from session atlas-mac)]<!-- BOOT_ONELINER:START -->
 atlas: 0 days since last spontaneous rewrite
 <!-- BOOT_ONELINER:END --><!-- BUILD_PLATE:START -->
-build 10 · compiled from 84acfe9 · the human is a contributor
+build 11 · compiled from 60c4f78 · the human is a contributor
 <!-- BUILD_PLATE:END -->
 <b>tarang@atlas-mac ~ %</b> <a href="#top">tmux attach -t atlas-mac</a>   # or: <a href="https://github.com/taranggoyal70/taranggoyal70/issues/new?title=sudo+make+me+a+sandwich">help</a>, <a href="https://github.com/taranggoyal70/taranggoyal70">source</a></pre>

@@ -1,6 +1,6 @@
 {
   "obsession": "agent trust evidence",
-  "motd": "the pull requests are flowing like coffee in the morning.",
+  "motd": "the pull requests keep coming. we are still here.",
   "processes": [
     {
       "command": "locus",
@@ -13,10 +13,10 @@
       "cpu": 85
     },
     {
-      "command": "beebizy",
-      "flags": "--sync --deploy",
+      "command": "pullreq",
+      "flags": "--merge --notify",
       "cpu": 75
     }
   ],
-  "updated": "2026-11-24T02:14:11Z"
+  "updated": "2026-11-26T23:52:09Z"
 }
