@@ -41,7 +41,8 @@ class HeroContracts(unittest.TestCase):
 
         self.assertEqual(all_cells, 58)
         self.assertEqual(all_cells - unlit_cells, round(58 * ph.WON / ph.ENTERED))
-        self.assertEqual(round(100 * ph.WON / ph.ENTERED), 62)
+        self.assertEqual((ph.WON, ph.ENTERED), (11, 17))
+        self.assertEqual(round(100 * ph.WON / ph.ENTERED), 65)
 
     def test_desktop_name_and_cursor_stay_inside_left_pane(self) -> None:
         x0 = 16
@@ -55,13 +56,13 @@ class HeroContracts(unittest.TestCase):
 
 
 class WinLedgerContracts(unittest.TestCase):
-    def test_ten_verified_wins_render(self) -> None:
+    def test_eleven_verified_wins_render(self) -> None:
         lines = (ROOT / "var/log/hackathons.log").read_text(encoding="utf-8").splitlines()
-        ships = hacklog.featured(hacklog.parse_log(lines), count=10)
+        ships = hacklog.featured(hacklog.parse_log(lines), count=11)
         records = json.loads((ROOT / "var/lib/ships.json").read_text(encoding="utf-8"))
         hacklog.attach_records(ships, records)
 
-        self.assertEqual(len(ships), 10)
+        self.assertEqual(len(ships), 11)
         self.assertEqual(
             [ship.name for ship in ships],
             [
@@ -75,6 +76,7 @@ class WinLedgerContracts(unittest.TestCase):
                 "Gatekit",
                 "Tickmark",
                 "Nazava Analytics",
+                "Claim OS",
             ],
         )
         self.assertTrue(all(ship.tag == "WIN" for ship in ships))
@@ -86,13 +88,14 @@ class WinLedgerContracts(unittest.TestCase):
         self.assertTrue(all("..." not in hacklog.award_label(ship, 24) for ship in ships))
 
         rendered = hacklog.render(ships)
-        self.assertEqual(len(rendered), 30)
+        self.assertEqual(len(rendered), 33)
         self.assertFalse(any(re.search(r"\b\d+ (?:stars?|forks?)\b", svg) for svg in rendered.values()))
 
 
 class ReadmeContracts(unittest.TestCase):
     def test_every_local_image_reference_exists(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn(f"{ph.WON} wins from {ph.ENTERED}", readme)
         refs = re.findall(r'(?:src|srcset)="([^"?#]+)', readme)
         local = [ref for ref in refs if not ref.startswith(("http://", "https://"))]
 

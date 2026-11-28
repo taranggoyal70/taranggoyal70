@@ -68,5 +68,12 @@
     "lang": "Python",
     "stars": 0,
     "forks": 0
+  },
+  "Claim OS": {
+    "repo": "taranggoyal70/claimos",
+    "payload": "agent-run property-tax appeals with sourced evidence and verified handoffs",
+    "lang": "TypeScript",
+    "stars": 0,
+    "forks": 0
   }
 }
