@@ -56,13 +56,15 @@ class HeroContracts(unittest.TestCase):
 
 
 class WinLedgerContracts(unittest.TestCase):
-    def test_eleven_verified_wins_render(self) -> None:
+    def test_ten_public_wins_render_while_lifetime_count_stays_eleven(self) -> None:
         lines = (ROOT / "var/log/hackathons.log").read_text(encoding="utf-8").splitlines()
-        ships = hacklog.featured(hacklog.parse_log(lines), count=11)
+        ledger = hacklog.parse_log(lines)
+        ships = hacklog.featured(ledger, count=10)
         records = json.loads((ROOT / "var/lib/ships.json").read_text(encoding="utf-8"))
         hacklog.attach_records(ships, records)
 
-        self.assertEqual(len(ships), 11)
+        self.assertIn("Claim OS", [ship.name for ship in ledger])
+        self.assertEqual(len(ships), 10)
         self.assertEqual(
             [ship.name for ship in ships],
             [
@@ -76,7 +78,6 @@ class WinLedgerContracts(unittest.TestCase):
                 "Gatekit",
                 "Tickmark",
                 "Nazava Analytics",
-                "Claim OS",
             ],
         )
         self.assertTrue(all(ship.tag == "WIN" for ship in ships))
@@ -88,7 +89,7 @@ class WinLedgerContracts(unittest.TestCase):
         self.assertTrue(all("..." not in hacklog.award_label(ship, 24) for ship in ships))
 
         rendered = hacklog.render(ships)
-        self.assertEqual(len(rendered), 33)
+        self.assertEqual(len(rendered), 30)
         self.assertFalse(any(re.search(r"\b\d+ (?:stars?|forks?)\b", svg) for svg in rendered.values()))
 
 
